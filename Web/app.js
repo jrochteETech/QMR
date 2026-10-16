@@ -118,7 +118,13 @@ function showPasswordChange(required = false) {
   modal.showModal();
   document.querySelector("#password-form").addEventListener("submit", async event => {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const passwordForm = event.currentTarget;
+    const submitButton = passwordForm.querySelector('button[type="submit"]');
+    const errorMessage = passwordForm.querySelector(".form-error");
+    const form = new FormData(passwordForm);
+    errorMessage.textContent = "";
+    submitButton.disabled = true;
+    submitButton.textContent = "Updating...";
     try {
       state.user = await api("/api/auth/change-password", { method: "POST", body: Object.fromEntries(form) });
       modal.close();
@@ -126,7 +132,12 @@ function showPasswordChange(required = false) {
       location.hash = "#/dashboard";
       route();
       notify("Password updated");
-    } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    } catch (error) {
+      errorMessage.textContent = error.message;
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = "Update password";
+    }
   });
 }
 
@@ -208,13 +219,14 @@ function openProjectDrawer(project = null) {
   openDrawer(project ? "Edit project" : "New project", project ? project.projectCode : "Add a project to the review program", projectForm(project || {}), `<button class="button secondary" data-close-drawer>Cancel</button><button class="button" type="submit" form="project-form">${project ? "Save changes" : "Create project"}</button>`);
   document.querySelector("#project-form").addEventListener("submit", async event => {
     event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
+    const formElement = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(formElement));
     try {
       const result = await api(project ? `/api/projects/${project.id}` : "/api/projects", { method: project ? "PUT" : "POST", body: payload });
       closeDrawer();
       notify(project ? "Project updated" : "Project created");
       if (project) renderProject(project.id); else location.hash = `#/projects/${result.id}`;
-    } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
 }
 
@@ -238,11 +250,12 @@ function showNewReview(projectID) {
   modal.showModal();
   document.querySelector("#review-form").addEventListener("submit", async event => {
     event.preventDefault();
+    const formElement = event.currentTarget;
     try {
-      const result = await api(`/api/projects/${projectID}/reviews`, { method: "POST", body: Object.fromEntries(new FormData(event.currentTarget)) });
+      const result = await api(`/api/projects/${projectID}/reviews`, { method: "POST", body: Object.fromEntries(new FormData(formElement)) });
       modal.close();
       location.hash = `#/reviews/${result.id}`;
-    } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
 }
 
@@ -282,9 +295,10 @@ function openAnswerDrawer(item, reviewID) {
   openDrawer(`${item.questionCode} / Answer`, item.reviewArea, body, `<button class="button secondary" data-add-action>+ Add action</button><button class="button" type="submit" form="answer-form">Save answer</button>`);
   document.querySelector("#answer-form").addEventListener("submit", async event => {
     event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
+    const formElement = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(formElement));
     payload.reviewTimeMinutes = Number(payload.reviewTimeMinutes || 0);
-    try { await api(`/api/reviews/${reviewID}/answers/${item.questionId}`, { method: "PUT", body: payload }); closeDrawer(); notify("Answer saved"); renderReview(reviewID); } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    try { await api(`/api/reviews/${reviewID}/answers/${item.questionId}`, { method: "PUT", body: payload }); closeDrawer(); notify("Answer saved"); renderReview(reviewID); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
   document.querySelector("[data-add-action]").addEventListener("click", () => openActionDrawer(null, { reviewId: reviewID, questionId: item.questionId, questionCode: item.questionCode, questionText: item.questionText }));
 }
@@ -335,11 +349,12 @@ function openActionDrawer(item = null, context = {}) {
   openDrawer(item ? "Edit action item" : "New action item", item ? `${item.projectCode} / ${item.questionCode}` : "Assign corrective or improvement work", body, `<button class="button secondary" data-close-drawer>Cancel</button><button class="button" type="submit" form="action-form">${item ? "Save changes" : "Create action"}</button>`);
   document.querySelector("#action-form").addEventListener("submit", async event => {
     event.preventDefault();
-    const payload = Object.fromEntries(new FormData(event.currentTarget));
+    const formElement = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(formElement));
     payload.ownerId = Number(payload.ownerId);
     payload.reviewId = Number(action.reviewId);
     payload.questionId = Number(action.questionId);
-    try { await api(item ? `/api/actions/${item.id}` : "/api/actions", { method: item ? "PUT" : "POST", body: payload }); closeDrawer(); notify(item ? "Action updated" : "Action created"); if (item) renderActions(); else renderReview(action.reviewId); } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    try { await api(item ? `/api/actions/${item.id}` : "/api/actions", { method: item ? "PUT" : "POST", body: payload }); closeDrawer(); notify(item ? "Action updated" : "Action created"); if (item) renderActions(); else renderReview(action.reviewId); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
 }
 
@@ -362,11 +377,12 @@ function openQuestionDrawer(question = null) {
   openDrawer(question ? "Edit question" : "Add question", "Question catalog", body, `<button class="button secondary" data-close-drawer>Cancel</button><button class="button" type="submit" form="question-form">Save question</button>`);
   document.querySelector("#question-form").addEventListener("submit", async event => {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const payload = Object.fromEntries(form);
     payload.sortOrder = Number(payload.sortOrder || 0);
     payload.active = question ? form.has("active") : true;
-    try { await api(question ? `/api/admin/questions/${question.id}` : "/api/admin/questions", { method: question ? "PUT" : "POST", body: payload }); closeDrawer(); notify("Question saved"); renderAdmin(); } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    try { await api(question ? `/api/admin/questions/${question.id}` : "/api/admin/questions", { method: question ? "PUT" : "POST", body: payload }); closeDrawer(); notify("Question saved"); renderAdmin(); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
 }
 
@@ -375,7 +391,8 @@ function showNewUser() {
   modal.showModal();
   document.querySelector("#user-form").addEventListener("submit", async event => {
     event.preventDefault();
-    try { const result = await api("/api/admin/users", { method: "POST", body: Object.fromEntries(new FormData(event.currentTarget)) }); showTemporaryPassword(result.temporaryPassword, "User created"); } catch (error) { event.currentTarget.querySelector(".form-error").textContent = error.message; }
+    const formElement = event.currentTarget;
+    try { const result = await api("/api/admin/users", { method: "POST", body: Object.fromEntries(new FormData(formElement)) }); showTemporaryPassword(result.temporaryPassword, "User created"); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
 }
 
