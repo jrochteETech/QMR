@@ -4,11 +4,9 @@ A project page would display all questions. When a question is clicked, a side p
 There should be a view of all questions of all projects with ability to filter/search that view.
 There should be a view of all action items for all questions and projects with the ability to filter/search.
 
-
-
 Users created should get a default temperatory password and be required to change the password on first log in. Password resets from an admin would trigger another required password change on temp password login.
 
-In the start folder of this repo there is an excel file with a template to reference with table headers and dropdown options for some question fields.
+In the start folder there is an excel file with a template to reference with table headers and dropdown options for some question fields.
 
 Ask me questions to clarify workflow.
 
