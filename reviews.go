@@ -111,9 +111,9 @@ func (application *app) listProjects(response http.ResponseWriter, request *http
 	rows, err := application.db.Query(request.Context(), `
 		SELECT p.id, p.project_code, p.name, p.business_unit, p.status, p.customer, p.project_manager,
 			p.start_date, p.end_date, p.notes, p.bac_labor_revenue, p.bac_labor_cost,
-			CASE WHEN p.bac_labor_cost <> 0 THEN 100 * (1 - p.bac_labor_revenue / p.bac_labor_cost) END,
+			CASE WHEN p.bac_labor_cost <> 0 THEN 100 * (1 - p.bac_labor_cost / p.bac_labor_revenue) END,
 			p.act_lab_margin,
-			CASE WHEN p.bac_labor_cost <> 0 THEN p.act_lab_margin - 100 * (1 - p.bac_labor_revenue / p.bac_labor_cost) END,
+			CASE WHEN p.bac_labor_cost <> 0 THEN p.act_lab_margin - 100 * (1 - p.bac_labor_cost / p.bac_labor_revenue) END,
 			COUNT(DISTINCT r.id), COUNT(DISTINCT a.id) FILTER (WHERE a.status NOT IN ('Closed', 'Deferred'))
 		FROM projects p
 		LEFT JOIN reviews r ON r.project_id = p.id
@@ -207,7 +207,7 @@ func (application *app) getProject(response http.ResponseWriter, request *http.R
 		return
 	}
 	var item project
-	err = application.db.QueryRow(request.Context(), `SELECT id, project_code, name, business_unit, status, customer, project_manager, start_date, end_date, notes, bac_labor_revenue, bac_labor_cost, CASE WHEN bac_labor_cost <> 0 THEN 100 * (1 - bac_labor_revenue / bac_labor_cost) END, act_lab_margin, CASE WHEN bac_labor_cost <> 0 THEN act_lab_margin - 100 * (1 - bac_labor_revenue / bac_labor_cost) END, 0, 0 FROM projects WHERE id=$1`, id).
+	err = application.db.QueryRow(request.Context(), `SELECT id, project_code, name, business_unit, status, customer, project_manager, start_date, end_date, notes, bac_labor_revenue, bac_labor_cost, CASE WHEN bac_labor_cost <> 0 THEN 100 * (1 - bac_labor_cost / bac_labor_revenue) END, act_lab_margin, CASE WHEN bac_labor_cost <> 0 THEN act_lab_margin - 100 * (1 - bac_labor_cost / bac_labor_revenue) END, 0, 0 FROM projects WHERE id=$1`, id).
 		Scan(&item.ID, &item.ProjectCode, &item.Name, &item.BusinessUnit, &item.Status, &item.Customer, &item.ProjectManager, &item.StartDate, &item.EndDate, &item.Notes, &item.BACLaborRevenue, &item.BACLaborCost, &item.BACLaborMargin, &item.ACTLabMargin, &item.LaborMarginVariance, &item.ReviewCount, &item.OpenActions)
 	if err != nil {
 		handleDBError(response, err)
