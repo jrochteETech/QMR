@@ -189,7 +189,26 @@ tbody tr[data-link]:hover { background: #f5f9ff; cursor: pointer; }
 .project-banner { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; padding: 18px; margin-bottom: 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
 .detail-label { display: block; color: var(--muted); font-size: 12px; margin-bottom: 5px; }
 .detail-value { color: var(--ink); font-weight: 700; }
+.financial-banner { margin-top: 14px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.calculated-field { min-height: 39px; display: flex; align-items: center; padding: 0 11px; border: 1px solid var(--line); border-radius: 4px; background: #f4f6f7; font-weight: 700; }
 .area-heading { padding: 10px 14px; background: #eef4f8; color: var(--navy); font-weight: 700; }
+.task-row { background: #fafcfd; }
+.task-row td:nth-child(2) { padding-left: 34px; }
+.task-indent { display: inline-flex; margin: 0 8px 4px 0; padding: 2px 7px; border-radius: 999px; background: #eaf2fd; color: var(--blue-dark); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.drawer-tasks { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 18px; }
+.drawer-tasks h3 { margin: 0 0 12px; color: var(--navy); font: 700 16px Georgia, serif; }
+.drawer-tasks tbody tr:hover { background: #f5f9ff; cursor: pointer; }
+.wiki { display: grid; gap: 14px; }
+.wiki-section { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.wiki-section > summary { display: grid; gap: 4px; padding: 17px 20px; color: var(--navy); cursor: pointer; }
+.wiki-section > summary span { font: 700 18px Georgia, serif; }
+.wiki-section > summary small { color: var(--muted); font-size: 13px; }
+.wiki-body { padding: 0 18px 18px; }
+.wiki-subsection { margin-top: 12px; border: 1px solid var(--line-soft); border-radius: 4px; }
+.wiki-subsection > summary { padding: 12px 14px; color: var(--navy); font-weight: 700; cursor: pointer; }
+.wiki-subsection > .table-wrap { border-top: 1px solid var(--line-soft); }
+.instruction-table { font-size: 13px; }
+.instruction-table td { min-width: 150px; white-space: pre-line; line-height: 1.45; }
 
 .drawer-backdrop { position: fixed; inset: 0; z-index: 30; background: rgba(0, 18, 31, 0.42); }
 .drawer { position: fixed; inset: 0 0 0 auto; z-index: 31; width: min(620px, 94vw); display: flex; flex-direction: column; background: #fff; box-shadow: -18px 0 46px rgba(0, 28, 47, .2); animation: drawer-in 180ms ease-out; }
@@ -229,6 +248,7 @@ dialog::backdrop { background: rgba(0, 18, 31, .52); }
   .sidebar-user { text-align: center; }
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .project-banner { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .financial-banner { grid-template-columns: repeat(3, minmax(0,1fr)); }
 }
 
 @media (max-width: 700px) {
@@ -248,7 +268,7 @@ dialog::backdrop { background: rgba(0, 18, 31, .52); }
   .metric-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
   .metric { min-height: 108px; padding: 15px; }
   .metric-value { font-size: 25px; }
-  .project-banner, .form-grid { grid-template-columns: 1fr; }
+  .project-banner, .financial-banner, .form-grid { grid-template-columns: 1fr; }
   .form-field.full, .section-label { grid-column: 1; }
   .toolbar { align-items: stretch; }
   .toolbar select, .search { width: 100%; max-width: none; }

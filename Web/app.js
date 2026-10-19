@@ -15,6 +15,7 @@ const icons = {
   projects: "&#9636;",
   questions: "?",
   actions: "&#10003;",
+  instructions: "&#8505;",
   admin: "&#9881;",
 };
 
@@ -52,6 +53,12 @@ function formatDate(value) {
   return `${month}/${day}/${year}`;
 }
 function formatPercent(value) { return `${Number(value || 0).toFixed(1)}%`; }
+function formatMoney(value) { return Number(value || 0).toLocaleString("en-US", { style: "currency", currency: "USD" }); }
+function formatMinutes(value) {
+  const minutes = Number(value || 0);
+  const hours = Math.floor(minutes / 60);
+  return hours ? `${hours}h ${minutes % 60}m` : `${minutes}m`;
+}
 function optionList(values = [], selected = "", blank = "Select") {
   return `<option value="">${escapeHTML(blank)}</option>${values.map(value => `<option value="${escapeHTML(value)}" ${value === selected ? "selected" : ""}>${escapeHTML(value)}</option>`).join("")}`;
 }
@@ -155,6 +162,7 @@ function shell(active, title, subtitle, content, actions = "", breadcrumbs = "Qu
         <a href="#/projects" class="${active === "projects" ? "active" : ""}"><span class="nav-icon">${icons.projects}</span><span class="nav-label">Projects</span></a>
         <a href="#/questions" class="${active === "questions" ? "active" : ""}"><span class="nav-icon">${icons.questions}</span><span class="nav-label">All Questions</span></a>
         <a href="#/actions" class="${active === "actions" ? "active" : ""}"><span class="nav-icon">${icons.actions}</span><span class="nav-label">Action Items</span></a>
+        <a href="#/instructions" class="${active === "instructions" ? "active" : ""}"><span class="nav-icon">${icons.instructions}</span><span class="nav-label">Instructions</span></a>
         ${adminLink}
       </nav>
       <div class="sidebar-user"><strong>${escapeHTML(state.user.name)}</strong><small>${escapeHTML(state.user.role)}</small><button class="logout-button" data-logout>Sign out</button></div>
@@ -210,6 +218,12 @@ function projectForm(project = {}) {
     <div class="form-field"><label>Project manager</label><input class="field" name="projectManager" aria-label="Project manager" value="${escapeHTML(project.projectManager)}"></div>
     <div class="form-field"><label>Start date</label><input class="field" name="startDate" aria-label="Start date" type="date" value="${dateValue(project.startDate)}"></div>
     <div class="form-field"><label>End date</label><input class="field" name="endDate" aria-label="End date" type="date" value="${dateValue(project.endDate)}"></div>
+    <div class="section-label">Labor financials</div>
+    <div class="form-field"><label>BAC Labor Revenue ($)</label><input class="field" name="bacLaborRevenue" aria-label="BAC Labor Revenue" type="number" min="0" step="0.01" value="${project.bacLaborRevenue ?? 0}"></div>
+    <div class="form-field"><label>BAC Labor Cost ($)</label><input class="field" name="bacLaborCost" aria-label="BAC Labor Cost" type="number" min="0" step="0.01" value="${project.bacLaborCost ?? 0}"></div>
+    <div class="form-field"><label>BAC Labor Margin (%)</label><output class="calculated-field" data-bac-margin>${project.bacLaborMargin == null ? "-" : formatPercent(project.bacLaborMargin)}</output></div>
+    <div class="form-field"><label>ACT LAB Margin (%)</label><input class="field" name="actLabMargin" aria-label="ACT LAB Margin" type="number" step="0.01" value="${project.actLabMargin ?? 0}"></div>
+    <div class="form-field"><label>Labor Margin Variance (%)</label><output class="calculated-field" data-margin-variance>${project.laborMarginVariance == null ? "-" : formatPercent(project.laborMarginVariance)}</output></div>
     <div class="form-field full"><label>Notes</label><textarea name="notes" aria-label="Project notes">${escapeHTML(project.notes)}</textarea></div>
     <div class="form-error full"></div>
   </form>`;
@@ -221,6 +235,7 @@ function openProjectDrawer(project = null) {
     event.preventDefault();
     const formElement = event.currentTarget;
     const payload = Object.fromEntries(new FormData(formElement));
+    ["bacLaborRevenue", "bacLaborCost", "actLabMargin"].forEach(name => { payload[name] = Number(payload[name] || 0); });
     try {
       const result = await api(project ? `/api/projects/${project.id}` : "/api/projects", { method: project ? "PUT" : "POST", body: payload });
       closeDrawer();
@@ -228,6 +243,16 @@ function openProjectDrawer(project = null) {
       if (project) renderProject(project.id); else location.hash = `#/projects/${result.id}`;
     } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
+  const updateMargins = () => {
+    const form = document.querySelector("#project-form");
+    const revenue = Number(form.elements.bacLaborRevenue.value);
+    const cost = Number(form.elements.bacLaborCost.value);
+    const actual = Number(form.elements.actLabMargin.value);
+    const margin = cost ? 100 * (1 - revenue / cost) : null;
+    form.querySelector("[data-bac-margin]").textContent = margin == null ? "-" : formatPercent(margin);
+    form.querySelector("[data-margin-variance]").textContent = margin == null ? "-" : formatPercent(actual - margin);
+  };
+  ["bacLaborRevenue", "bacLaborCost", "actLabMargin"].forEach(name => document.querySelector(`#project-form [name="${name}"]`).addEventListener("input", updateMargins));
 }
 
 async function renderProject(id) {
@@ -236,11 +261,12 @@ async function renderProject(id) {
   const edit = state.user.role === "admin" ? '<button class="button secondary" data-edit-project>Edit project</button>' : "";
   const reviewRows = data.reviews.map(review => {
     const percent = review.total ? Math.round(review.answered * 100 / review.total) : 0;
-    return `<tr data-link="#/reviews/${review.id}"><td><span class="cell-title">${escapeHTML(review.reviewType)}</span><span class="cell-sub">${formatDate(review.reviewDate)}</span></td><td>${escapeHTML(review.reviewerName)}</td><td>${statusBadge(review.status)}</td><td><span class="cell-sub">${review.answered} of ${review.total}</span><div class="progress"><span style="width:${percent}%"></span></div></td></tr>`;
+    return `<tr data-link="#/reviews/${review.id}"><td><span class="cell-title">${escapeHTML(review.reviewType)}</span><span class="cell-sub">${formatDate(review.reviewDate)}</span></td><td>${escapeHTML(review.reviewerName)}</td><td>${statusBadge(review.status)}</td><td><span class="cell-sub">${review.answered} of ${review.total}</span><div class="progress"><span style="width:${percent}%"></span></div></td><td>${formatMinutes(review.totalTimeMinutes)}</td></tr>`;
   }).join("");
   shell("projects", project.name, `${project.projectCode} / ${project.customer || "No customer recorded"}`, `
     <section class="project-banner"><div><span class="detail-label">Business unit</span><span class="detail-value">${escapeHTML(project.businessUnit)}</span></div><div><span class="detail-label">Project manager</span><span class="detail-value">${escapeHTML(project.projectManager || "-")}</span></div><div><span class="detail-label">Project dates</span><span class="detail-value">${formatDate(project.startDate)} - ${formatDate(project.endDate)}</span></div><div><span class="detail-label">Status</span>${statusBadge(project.status)}</div></section>
-    <section class="panel"><div class="panel-head"><h2>Review history</h2></div><div class="table-wrap"><table><thead><tr><th>Review</th><th>Reviewer</th><th>Status</th><th>Completion</th></tr></thead><tbody>${reviewRows || emptyRow(4, "No reviews yet", "Start the first review for this project.")}</tbody></table></div></section>`, `${edit}<button class="button" data-new-review>+ Start review</button>`, `<a href="#/projects">Projects</a> / ${escapeHTML(project.projectCode)}`);
+    <section class="project-banner financial-banner"><div><span class="detail-label">BAC Labor Revenue</span><span class="detail-value">${formatMoney(project.bacLaborRevenue)}</span></div><div><span class="detail-label">BAC Labor Cost</span><span class="detail-value">${formatMoney(project.bacLaborCost)}</span></div><div><span class="detail-label">BAC Labor Margin</span><span class="detail-value">${project.bacLaborMargin == null ? "-" : formatPercent(project.bacLaborMargin)}</span></div><div><span class="detail-label">ACT LAB Margin</span><span class="detail-value">${formatPercent(project.actLabMargin)}</span></div><div><span class="detail-label">Labor Margin Variance</span><span class="detail-value">${project.laborMarginVariance == null ? "-" : formatPercent(project.laborMarginVariance)}</span></div></section>
+    <section class="panel"><div class="panel-head"><h2>Review history</h2></div><div class="table-wrap"><table><thead><tr><th>Review</th><th>Reviewer</th><th>Status</th><th>Completion</th><th>Total time</th></tr></thead><tbody>${reviewRows || emptyRow(5, "No reviews yet", "Start the first review for this project.")}</tbody></table></div></section>`, `${edit}<button class="button" data-new-review>+ Start review</button>`, `<a href="#/projects">Projects</a> / ${escapeHTML(project.projectCode)}`);
   document.querySelector("[data-edit-project]")?.addEventListener("click", () => openProjectDrawer(project));
   document.querySelector("[data-new-review]").addEventListener("click", () => showNewReview(id));
 }
@@ -266,7 +292,11 @@ async function renderReview(id) {
   let rows = "";
   Object.entries(grouped).forEach(([area, answers]) => {
     rows += `<tr><td colspan="5" class="area-heading">${escapeHTML(area)}</td></tr>`;
-    rows += answers.map(item => `<tr data-question="${item.questionId}"><td><span class="code">${escapeHTML(item.questionCode)}</span></td><td><div class="truncate">${escapeHTML(item.questionText)}</div></td><td>${statusBadge(item.result)}</td><td>${escapeHTML(item.evidenceStatus || "-")}</td><td>${item.actionCount}</td></tr>`).join("");
+    rows += answers.map(item => {
+      const questionActions = data.actions.filter(action => action.questionId === item.questionId);
+      const actionRows = questionActions.map(action => `<tr class="task-row" data-question-group="${item.questionId}" data-action="${action.id}"><td></td><td><span class="task-indent">Task</span><span class="cell-title">${escapeHTML(action.description)}</span><span class="cell-sub">${escapeHTML(action.actionType)} / ${escapeHTML(action.ownerName)}</span></td><td>${statusBadge(action.status)}</td><td>${formatDate(action.dueDate)}</td><td></td></tr>`).join("");
+      return `<tr data-question="${item.questionId}" data-question-group="${item.questionId}"><td><span class="code">${escapeHTML(item.questionCode)}</span></td><td><div class="truncate">${escapeHTML(item.questionText)}</div></td><td>${statusBadge(item.result)}</td><td>${escapeHTML(item.evidenceStatus || "-")}</td><td>${item.actionCount}</td></tr>${actionRows}`;
+    }).join("");
   });
   const statusSelect = `<select id="review-status">${optionList(state.options.reviewStatuses, data.review.status, "Select status")}</select>`;
   shell("projects", data.projectName, `${data.review.reviewType} / ${formatDate(data.review.reviewDate)}`, `<section class="panel"><div class="toolbar"><input class="search" id="question-search" type="search" placeholder="Search questions"><span>${statusSelect}</span><span class="badge">${data.review.answered} of ${data.review.total} answered</span></div><div class="table-wrap"><table><thead><tr><th>Code</th><th>Question</th><th>Result</th><th>Evidence</th><th>Actions</th></tr></thead><tbody id="review-questions">${rows || emptyRow(5, "No questions configured", "An administrator must add questions before this review can begin.")}</tbody></table></div></section>`, "", `<a href="#/projects">Projects</a> / <a href="#/projects/${data.projectId}">${escapeHTML(data.projectName)}</a> / Review`);
@@ -275,32 +305,95 @@ async function renderReview(id) {
   });
   document.querySelector("#question-search").addEventListener("input", event => {
     const term = event.target.value.toLowerCase();
-    document.querySelectorAll("[data-question]").forEach(row => { row.hidden = !row.textContent.toLowerCase().includes(term); });
+    document.querySelectorAll("[data-question]").forEach(row => {
+      const visible = row.textContent.toLowerCase().includes(term);
+      document.querySelectorAll(`[data-question-group="${row.dataset.question}"]`).forEach(groupRow => { groupRow.hidden = !visible; });
+    });
   });
   document.querySelectorAll("[data-question]").forEach(row => row.addEventListener("click", () => openAnswerDrawer(data.answers.find(item => item.questionId === Number(row.dataset.question)), id)));
+  document.querySelectorAll("[data-action]").forEach(row => row.addEventListener("click", () => openActionDrawer(data.actions.find(item => item.id === Number(row.dataset.action)), { returnReviewId: id })));
 }
 
 function openAnswerDrawer(item, reviewID) {
+  const questionActions = state.currentReview.actions.filter(action => action.questionId === item.questionId);
+  const taskRows = questionActions.map(action => `<tr data-drawer-action="${action.id}"><td><span class="cell-title">${escapeHTML(action.description)}</span><span class="cell-sub">${escapeHTML(action.ownerName)} / ${formatDate(action.dueDate)}</span></td><td>${statusBadge(action.status)}</td></tr>`).join("");
   const body = `<form id="answer-form" class="form-grid">
     <div class="form-field full"><label>Question</label><div><strong>${escapeHTML(item.questionText)}</strong>${item.guidance ? `<p class="hint">${escapeHTML(item.guidance)}</p>` : ""}</div></div>
     <div class="form-field"><label>Result</label><select name="result" aria-label="Result">${optionList(state.options.results, item.result)}</select></div>
     <div class="form-field"><label>Evidence status</label><select name="evidenceStatus" aria-label="Evidence status">${optionList(state.options.evidenceStatuses, item.evidenceStatus)}</select></div>
     <div class="form-field full"><label>Evidence notes / location</label><textarea name="evidenceNotes" aria-label="Evidence notes or location">${escapeHTML(item.evidenceNotes)}</textarea></div>
+    <div class="form-field full"><label class="check-row"><input name="pmClarificationUsed" type="checkbox" ${item.pmClarificationUsed ? "checked" : ""}> PM Clarification Used</label></div>
+    <div class="form-field full" data-pm-summary ${item.pmClarificationUsed ? "" : "hidden"}><label>PM Clarification Summary</label><textarea name="pmClarificationSummary" aria-label="PM Clarification Summary">${escapeHTML(item.pmClarificationSummary)}</textarea></div>
     <div class="form-field"><label>Primary root cause</label><select name="primaryRootCause" aria-label="Primary root cause">${optionList(state.options.rootCauses, item.primaryRootCause)}</select></div>
     <div class="form-field"><label>Quality-system-related?</label><select name="qualitySystemRelated" aria-label="Quality-system-related">${optionList(state.options.systemRelatedValues, item.qualitySystemRelated)}</select></div>
     <div class="form-field"><label>Review time (minutes)</label><input class="field" name="reviewTimeMinutes" aria-label="Review time in minutes" type="number" min="0" value="${item.reviewTimeMinutes || 0}"></div>
     <div class="form-field full"><label>Reviewer notes</label><textarea name="reviewerNotes" aria-label="Reviewer notes">${escapeHTML(item.reviewerNotes)}</textarea></div>
+    <div class="form-field full"><label class="check-row"><input name="followUpRequired" type="checkbox" ${item.followUpRequired ? "checked" : ""}> Follow-Up Required</label></div>
     <div class="form-error full"></div>
-  </form>`;
+  </form><section class="drawer-tasks"><h3>Tasks</h3><div class="table-wrap"><table><thead><tr><th>Task</th><th>Status</th></tr></thead><tbody>${taskRows || emptyRow(2, "No tasks", "Add a task for this question when follow-up work is needed.")}</tbody></table></div></section>`;
   openDrawer(`${item.questionCode} / Answer`, item.reviewArea, body, `<button class="button secondary" data-add-action>+ Add action</button><button class="button" type="submit" form="answer-form">Save answer</button>`);
+  const formElement = document.querySelector("#answer-form");
+  const answerPayload = () => {
+    const form = new FormData(formElement);
+    const payload = Object.fromEntries(form);
+    payload.reviewTimeMinutes = Number(payload.reviewTimeMinutes || 0);
+    payload.pmClarificationUsed = form.has("pmClarificationUsed");
+    payload.followUpRequired = form.has("followUpRequired");
+    return payload;
+  };
+  const saveAnswer = () => api(`/api/reviews/${reviewID}/answers/${item.questionId}`, { method: "PUT", body: answerPayload() });
+  formElement.elements.pmClarificationUsed.addEventListener("change", event => {
+    document.querySelector("[data-pm-summary]").hidden = !event.target.checked;
+  });
   document.querySelector("#answer-form").addEventListener("submit", async event => {
     event.preventDefault();
-    const formElement = event.currentTarget;
-    const payload = Object.fromEntries(new FormData(formElement));
-    payload.reviewTimeMinutes = Number(payload.reviewTimeMinutes || 0);
-    try { await api(`/api/reviews/${reviewID}/answers/${item.questionId}`, { method: "PUT", body: payload }); closeDrawer(); notify("Answer saved"); renderReview(reviewID); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
+    try { await saveAnswer(); closeDrawer(); notify("Answer saved"); renderReview(reviewID); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
-  document.querySelector("[data-add-action]").addEventListener("click", () => openActionDrawer(null, { reviewId: reviewID, questionId: item.questionId, questionCode: item.questionCode, questionText: item.questionText }));
+  document.querySelector("[data-add-action]").addEventListener("click", async () => {
+    try {
+      await saveAnswer();
+      openActionDrawer(null, { reviewId: reviewID, questionId: item.questionId, questionCode: item.questionCode, questionText: item.questionText });
+    } catch (error) {
+      formElement.querySelector(".form-error").textContent = error.message;
+    }
+  });
+  document.querySelectorAll("[data-drawer-action]").forEach(row => row.addEventListener("click", () => openActionDrawer(questionActions.find(action => action.id === Number(row.dataset.drawerAction)), { returnReviewId: reviewID })));
+}
+
+function instructionTable(rows) {
+  if (!rows.length) return "";
+  const [headers, ...body] = rows;
+  const columnCount = Math.max(...rows.map(row => row.length));
+  return `<div class="table-wrap"><table class="instruction-table"><thead><tr>${Array.from({ length: columnCount }, (_, index) => `<th>${escapeHTML(headers[index] || "")}</th>`).join("")}</tr></thead><tbody>${body.map(row => `<tr>${Array.from({ length: columnCount }, (_, index) => `<td>${escapeHTML(row[index] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function instructionContent(rows) {
+  const leadingRows = [];
+  const groups = [];
+  let currentGroup = null;
+  rows.forEach(row => {
+    if (row.length === 1) {
+      currentGroup = { title: row[0], rows: [] };
+      groups.push(currentGroup);
+    } else if (currentGroup) {
+      currentGroup.rows.push(row);
+    } else {
+      leadingRows.push(row);
+    }
+  });
+  return `${instructionTable(leadingRows)}${groups.map(group => `<details class="wiki-subsection"><summary>${escapeHTML(group.title)}</summary>${instructionTable(group.rows)}</details>`).join("")}`;
+}
+
+async function renderInstructions() {
+  const data = await api("/api/instructions");
+  const sections = [
+    ["Overview", "Workbook purpose and navigation", data.overview],
+    ["Field instructions", "How to complete each review and question field", data.instructions],
+    ["Scoring guide", "Question-specific criteria, evidence, and evaluation boundaries", data.scoringGuide],
+    ["Source matrix", "Controlling reference material for each question", data.sourceMatrix],
+  ];
+  const content = sections.map(([title, description, rows], index) => `<details class="wiki-section" ${index === 0 ? "open" : ""}><summary><span>${escapeHTML(title)}</span><small>${escapeHTML(description)}</small></summary><div class="wiki-body">${instructionContent(rows)}</div></details>`).join("");
+  shell("instructions", "Instructions", "Workbook guidance, scoring criteria, and source references", `<section class="wiki">${content}</section>`);
 }
 
 async function renderQuestions() {
@@ -354,7 +447,14 @@ function openActionDrawer(item = null, context = {}) {
     payload.ownerId = Number(payload.ownerId);
     payload.reviewId = Number(action.reviewId);
     payload.questionId = Number(action.questionId);
-    try { await api(item ? `/api/actions/${item.id}` : "/api/actions", { method: item ? "PUT" : "POST", body: payload }); closeDrawer(); notify(item ? "Action updated" : "Action created"); if (item) renderActions(); else renderReview(action.reviewId); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
+    try {
+      await api(item ? `/api/actions/${item.id}` : "/api/actions", { method: item ? "PUT" : "POST", body: payload });
+      closeDrawer();
+      notify(item ? "Action updated" : "Action created");
+      if (context.returnReviewId) renderReview(context.returnReviewId);
+      else if (item) renderActions();
+      else renderReview(action.reviewId);
+    } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
   });
 }
 
@@ -402,6 +502,7 @@ async function resetUser(id, name) {
 function showTemporaryPassword(password, heading) {
   modal.innerHTML = `<div class="modal-content"><h2>${escapeHTML(heading)}</h2><p class="hint">This password is shown only once. The user must change it at the next sign-in.</p><div class="password-value">${escapeHTML(password)}</div><div class="modal-actions"><button class="button" type="button" data-finish-temp>Done</button></div></div>`;
   document.querySelector("[data-finish-temp]").addEventListener("click", () => { modal.close(); renderAdmin(); });
+  modal.showModal();
 }
 
 function openDrawer(title, subtitle, body, footer) {
@@ -424,6 +525,7 @@ async function route() {
     else if (section === "reviews" && parts[1]) await renderReview(parts[1]);
     else if (section === "questions") await renderQuestions();
     else if (section === "actions") await renderActions(parts[1]);
+    else if (section === "instructions") await renderInstructions();
     else if (section === "admin" && state.user.role === "admin") await renderAdmin();
     else location.hash = "#/dashboard";
   } catch (error) {

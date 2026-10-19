@@ -21,9 +21,13 @@ var schemaSQL string
 //go:embed Web/*
 var assets embed.FS
 
+//go:embed Start/QSR_Pilot_R01.xlsx
+var instructionWorkbook []byte
+
 type app struct {
 	db           *pgxpool.Pool
 	secureCookie bool
+	instructions instructionData
 }
 
 func main() {
@@ -42,7 +46,11 @@ func main() {
 		log.Fatalf("apply schema: %v", err)
 	}
 
-	application := &app{db: db, secureCookie: strings.EqualFold(env("COOKIE_SECURE", "false"), "true")}
+	instructions, err := parseInstructionWorkbook(instructionWorkbook)
+	if err != nil {
+		log.Fatalf("load instruction workbook: %v", err)
+	}
+	application := &app{db: db, secureCookie: strings.EqualFold(env("COOKIE_SECURE", "false"), "true"), instructions: instructions}
 	if err := application.ensureBootstrapAdmin(ctx); err != nil {
 		log.Fatalf("bootstrap admin: %v", err)
 	}
@@ -90,6 +98,7 @@ func (application *app) routes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /api/auth/change-password", application.auth(application.changePassword))
 
 	mux.HandleFunc("GET /api/options", application.auth(application.options))
+	mux.HandleFunc("GET /api/instructions", application.auth(application.getInstructions))
 	mux.HandleFunc("GET /api/users", application.auth(application.listActiveUsers))
 	mux.HandleFunc("GET /api/dashboard", application.auth(application.dashboard))
 	mux.HandleFunc("GET /api/projects", application.auth(application.listProjects))

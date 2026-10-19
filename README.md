@@ -10,6 +10,9 @@ A project quality review system with a Go API, vanilla HTML/CSS/JavaScript front
 - Searchable cross-project question and action views
 - Admin-managed question catalog, projects, and users
 - One-time temporary passwords with mandatory password change after creation or reset
+- Workbook-backed expandable instructions, scoring guidance, and source matrix
+- Project labor financials with calculated BAC margin and margin variance
+- Question-level PM clarification, follow-up flags, inline tasks, and review time totals
 - Dashboard metrics for conformance, evidence gaps, reviews, and overdue actions
 
 ## Run with Docker Compose
