@@ -21,9 +21,6 @@ var schemaSQL string
 //go:embed Web/*
 var assets embed.FS
 
-//go:embed Start/QSR_Pilot_R01.xlsx
-var instructionWorkbook []byte
-
 type app struct {
 	db           *pgxpool.Pool
 	secureCookie bool
@@ -46,9 +43,9 @@ func main() {
 		log.Fatalf("apply schema: %v", err)
 	}
 
-	instructions, err := parseInstructionWorkbook(instructionWorkbook)
+	instructions, err := loadInstructions(assets)
 	if err != nil {
-		log.Fatalf("load instruction workbook: %v", err)
+		log.Fatalf("load instructions: %v", err)
 	}
 	application := &app{db: db, secureCookie: strings.EqualFold(env("COOKIE_SECURE", "false"), "true"), instructions: instructions}
 	if err := application.ensureBootstrapAdmin(ctx); err != nil {

@@ -2,10 +2,10 @@ package main
 
 import "testing"
 
-func TestParseInstructionWorkbook(t *testing.T) {
-	instructions, err := parseInstructionWorkbook(instructionWorkbook)
+func TestLoadInstructions(t *testing.T) {
+	instructions, err := loadInstructions(assets)
 	if err != nil {
-		t.Fatalf("parseInstructionWorkbook() error = %v", err)
+		t.Fatalf("loadInstructions() error = %v", err)
 	}
 
 	tests := []struct {

@@ -1,0 +1,1192 @@
+{
+  "overview": [
+    [
+      "Worksheet",
+      "Purpose"
+    ],
+    [
+      "Instructions",
+      "Provides the basic rules for using the QSR workbook, including how to complete the Review Register and Review Entry fields and how scoring, evidence, root cause, and follow-up should be handled."
+    ],
+    [
+      "Review Register",
+      "Serves as the master list of review instances and records review-level information such as project, reviewer, review type, status, dates, and review time."
+    ],
+    [
+      "Review Entry",
+      "Captures the question-by-question results for each review, including evidence, PM clarification, observations, root cause, quality-system relationship, and follow-up needs."
+    ],
+    [
+      "Scoring Guide",
+      "Provides concise 3/2/1 scoring criteria, typical evidence, and question boundaries to help reviewers apply ratings consistently."
+    ],
+    [
+      "Source Matrix",
+      "Maps each QSR question to the controlling source documents, sections, pages, and requirements that support the expectation being reviewed."
+    ],
+    [
+      "Actions",
+      "Tracks corrective actions, improvement opportunities, ownership, due dates, status, and closure evidence resulting from QSR findings."
+    ],
+    [
+      "KPI Summary",
+      "Summarizes QSR performance, review-area results, root-cause trends, evidence-control metrics, completion, and review-effort measures."
+    ],
+    [
+      "Lists",
+      "Stores the controlled dropdown values used throughout the workbook, such as review types, statuses, evidence categories, root causes, and action classifications."
+    ]
+  ],
+  "instructions": [
+    [
+      "Review Register Worksheet"
+    ],
+    [
+      "Review Register Column",
+      "Purpose"
+    ],
+    [
+      "Review ID",
+      "Unique identifier for the review instance. Use the established format, such as Project ID 01-R01."
+    ],
+    [
+      "Project ID",
+      "Project/job number for the project being reviewed. Project selection criteria:\n - PM diversity where practical\n - active projects far enough along to provide meaningful evidence\n - completed projects preferably within the last 6\u201312 months\n - mix of small, medium, and larger projects\n - mix of routine and 1\u20132 known-challenged projects per BU\n - exclusions for projects that are too new, too small, administrative-only, or unusually atypical"
+    ],
+    [
+      "Project Description",
+      "Short project name or description sufficient to identify the project."
+    ],
+    [
+      "Project Manager",
+      "PM responsible for the project being reviewed."
+    ],
+    [
+      "Business Unit",
+      "Business Unit that owns or executes the project."
+    ],
+    [
+      "Project Status",
+      "Select the project lifecycle status used for the review, currently Active or Completed."
+    ],
+    [
+      "Sold Labor Revenue",
+      "Provides a simple measure of project labor size to support comparison of QSR results across projects of different scale.\n - Labor revenue included in the approved project estimate at the time the project was sold.\n - Enter the original sold labor revenue from the approved estimate/proposal baseline. Do not update for later changes unless the original commercial baseline itself was formally revised."
+    ],
+    [
+      "Sold Labor Margin %",
+      "Establishes the original labor profitability expectation at the time the project was sold for comparison to subsequent performance.\n - Labor gross margin percentage reflected in the approved estimate at the time the project was sold.\n - Enter the labor margin percentage from the original approved estimate/proposal baseline. Use the same underlying source as Sold Labor Revenue."
+    ],
+    [
+      "Labor Margin at Review %",
+      "Captures the project\u2019s labor margin performance at the time of the review to provide financial-performance context for the QSR results.\n - The project\u2019s current forecast labor margin at the time of the QSR, or final actual labor margin if the project is complete.\n - For an active project, use the current forecast/EAC labor margin available at the time of review. For a completed project, use the final actual labor margin."
+    ],
+    [
+      "Labor Margin Variance",
+      "Shows the degree of labor margin improvement or erosion relative to the sold labor margin, enabling comparison of financial performance across reviewed projects.\n - Difference between the project\u2019s labor margin at review and its sold labor margin.\n - Calculate as: Labor Margin at Review % \u2013 Sold Labor Margin %. A negative result indicates margin erosion; a positive result indicates improvement."
+    ],
+    [
+      "Review Sequence",
+      "Numeric sequence of reviews for the same project. Use 1 for the initial review, 2 for the first follow-up, etc."
+    ],
+    [
+      "Review Type",
+      "Select Initial Review for the first QSR or Follow-Up Review for a targeted check of findings or actions from a prior review."
+    ],
+    [
+      "Reviewer",
+      "Person conducting the QSR."
+    ],
+    [
+      "Review Status",
+      "Current status of the review, such as Not Started, In Progress, or Completed."
+    ],
+    [
+      "Review Start Date",
+      "Date the reviewer began substantive review work."
+    ],
+    [
+      "Review Completion Date",
+      "Date the review was completed."
+    ],
+    [
+      "Initial Review Time (Hours)",
+      "Total reviewer time spent completing the review. Used to calculate Average Review Time."
+    ],
+    [
+      "Notes",
+      "Optional review-level context that is useful but does not belong in the individual question results."
+    ],
+    [
+      "Review Entry Worksheet"
+    ],
+    [
+      "Review Entry Column",
+      "Purpose"
+    ],
+    [
+      "Review ID",
+      "Identifies the review instance. This links the question result back to the corresponding review in the Review Register."
+    ],
+    [
+      "Review Area",
+      "The QSR review area associated with the question, such as Risk Management or Change Management. This is predefined and should not be edited."
+    ],
+    [
+      "Question ID",
+      "Unique identifier for the controlled QSR question, such as 4.2. This is predefined and should not be edited."
+    ],
+    [
+      "Controlled Question Text",
+      "The approved QSR question being evaluated. This is predefined and should not be edited."
+    ],
+    [
+      "Primary Intent",
+      "Brief explanation of what the question is intended to evaluate. Use this to help interpret the question consistently."
+    ],
+    [
+      "Result",
+      "Select 3 - Meets Expectation, 2 - Partially Meets Expectation, 1 - Does Not Meet Expectation, N/A - Not Applicable or UTD - Unable To Determine based on the Scoring Guide."
+    ],
+    [
+      "Evidence Status",
+      "Select the status that best describes the evidence supporting the result, such as Expected Evidence Found, Acceptable Alternate Evidence, Incomplete Evidence, or Missing Evidence."
+    ],
+    [
+      "Evidence Reviewed / Location",
+      "Identify the specific evidence actually reviewed and where it was found or linked so another reviewer could retrace the basis for the rating."
+    ],
+    [
+      "PM Clarification Used?",
+      "Select Yes if PM clarification materially helped determine applicability, locate evidence, reconcile records, or understand how the control was performed. Otherwise select No."
+    ],
+    [
+      "PM Clarification Summary",
+      "If clarification was used, briefly summarize the information that affected the review conclusion. PM explanation provides context but does not replace required evidence."
+    ],
+    [
+      "Reviewer Observation",
+      "For a result of 1 or 2, briefly describe what did not meet the expectation and the material gap observed. For a result of 3, an observation is optional unless useful context should be retained."
+    ],
+    [
+      "Primary Root Cause",
+      "Required for results of 1 or 2. Select the single approved root-cause category that best explains why the gap occurred."
+    ],
+    [
+      "Root-Cause Explanation",
+      "Briefly explain why the selected root cause applies. Describe the reason for the gap rather than simply repeating the finding."
+    ],
+    [
+      "Follow-Up Required?",
+      "Select Yes when a Follow-Up Review is needed to verify that the underlying control or expectation has been satisfactorily addressed. A Follow-Up Review is not required solely because an action was created or completed. Follow-Up Reviews are targeted to the specific gap(s) or control(s) requiring verification rather than repeating the full project review."
+    ],
+    [
+      "Scoring Guide Worksheet"
+    ],
+    [
+      "Use the Scoring Guide worksheet to help reviewers assign consistent ratings for each QSR question. The Scoring Guide is intended to improve consistency between reviewers. It does not replace reviewer judgment, the controlling source requirements, or the need to consider the project\u2019s lifecycle stage and applicability. N/A and UTD are handled under the separate QSR scoring rules rather than the 3/2/1 question-specific criteria."
+    ],
+    [
+      "The reviewer should filter to the applicable Review Area or Question ID, compare the available evidence to the 3/2/1 criteria, consider the Typical Evidence and Key Boundary, and then enter the selected result on the Review Entry worksheet."
+    ],
+    [
+      "For each question, the worksheet provides:"
+    ],
+    [
+      "Scoring Guide Column",
+      "Purpose"
+    ],
+    [
+      "Review Area",
+      "Identifies the QSR review area the question belongs to."
+    ],
+    [
+      "Question ID",
+      "Identifies the specific controlled question."
+    ],
+    [
+      "Controlled Question",
+      "Shows the approved question being evaluated."
+    ],
+    [
+      "3 \u2014 Meets Expectation",
+      "Describes what satisfactory performance looks like when the expectation is substantially fulfilled and supported by evidence."
+    ],
+    [
+      "2 \u2014 Partially Meets Expectation",
+      "Describes conditions where meaningful elements are present, but execution, evidence, maintenance, timeliness, approval, or effectiveness is materially incomplete."
+    ],
+    [
+      "1 \u2014 Does Not Meet Expectation",
+      "Describes conditions where the applicable expectation is not met, is ineffective, or cannot be reliably verified."
+    ],
+    [
+      "Typical Evidence",
+      "Gives examples of records that may support the reviewer\u2019s conclusion. These are examples, not an exhaustive checklist."
+    ],
+    [
+      "Evaluation Boundary",
+      "Clarifies what the question is intended to score and helps prevent the same issue from being counted under multiple questions unless a separate control also failed."
+    ],
+    [
+      "Source Matrix Worksheet"
+    ],
+    [
+      "Use the Source Matrix worksheet to identify the controlling source requirements that support each QSR question and to help the reviewer verify the basis for the scoring expectation."
+    ],
+    [
+      "The reviewer should filter the worksheet by Review Area and/or Question ID when additional source context is needed. Multiple rows for a question indicate that the expectation is supported by more than one applicable source."
+    ],
+    [
+      "The Source Matrix is intended to make the QSR requirements traceable and verifiable. It should be used together with the Scoring Guide: the Scoring Guide explains how to evaluate the question, while the Source Matrix identifies the controlling documents behind that expectation."
+    ],
+    [
+      "Source Matrix Column",
+      "Purpose"
+    ],
+    [
+      "Review Area",
+      "Identifies the QSR review area associated with the source reference."
+    ],
+    [
+      "Question ID",
+      "Identifies the specific QSR question supported by the source. A question may have multiple source-reference rows."
+    ],
+    [
+      "Source Document",
+      "Identifies the policy, SOP, standard, Project Workbook, Project Notebook, or other controlling QSR source containing the applicable requirement or guidance."
+    ],
+    [
+      "Section",
+      "Identifies the specific section, subsection, worksheet, agenda, or other location within the source."
+    ],
+    [
+      "Page",
+      "Provides the applicable page number or page range where available. N/A is used where conventional page numbering does not apply, such as a workbook worksheet."
+    ],
+    [
+      "Requirement / Relevance",
+      "Briefly explains what the cited source establishes and why it is relevant to the associated QSR question."
+    ],
+    [
+      "Source File",
+      "Identifies the specific source file used for the reference."
+    ],
+    [
+      "Actions Worksheet"
+    ],
+    [
+      "An Action record is required for every Review Entry result of 1 \u2014 Does Not Meet Expectation or 2 \u2014 Partially Meets Expectation. Multiple related gaps may be addressed through a single Action when appropriate, provided each gap remains clearly traceable to that Action."
+    ],
+    [
+      "Actions Column",
+      "Purpose"
+    ],
+    [
+      "Action ID",
+      "Unique identifier for the action or improvement item so it can be tracked through closure."
+    ],
+    [
+      "Review ID",
+      "Review that generated the action. Use the corresponding Review ID from the Review Register."
+    ],
+    [
+      "Question ID",
+      "QSR question associated with the finding or improvement opportunity."
+    ],
+    [
+      "Action Type",
+      "Select the category that best describes the type of action or improvement being addressed:\n  - Project Correction - The issue is specific to the reviewed project and should be corrected within that project. It does not necessarily indicate a problem with the quality system itself.\n  - Standard / Process - The finding indicates that an SOP, standard, process requirement, or workflow may need clarification, revision, or improvement.\n   - Tool / Template - The action involves changing or improving a standard tool, workbook, template, form, checklist, or other execution aid.\n  - Training / Communication - The response should primarily address understanding or awareness through training, coaching, guidance, or communication.\n  - Governance \t- The issue requires improved oversight, accountability, enforcement, management review, or another governance mechanism rather than simply changing the written standard.\n  - Further Evaluation - There is enough evidence to warrant follow-up, but it is not yet clear what type of improvement is appropriate. Additional analysis is needed before deciding the action."
+    ],
+    [
+      "Action / Improvement",
+      "Briefly describe the specific corrective action, improvement, verification, or follow-up that is required. Make it clear enough to determine when it has been completed."
+    ],
+    [
+      "Owner",
+      "Required for every Action. Identify the person accountable for completing or coordinating the action. Project-specific corrective actions are normally owned by the Project Manager; system-level actions should be assigned to the appropriate functional or quality-system owner."
+    ],
+    [
+      "Due Date",
+      "Required for every Action. Enter the agreed target date for completing the action."
+    ],
+    [
+      "Status",
+      "Required for every Action. Select the current status of the action using the available dropdown values and keep it current through closure."
+    ],
+    [
+      "Closure Evidence",
+      "Required before an Action is closed. Identify the evidence or closure note demonstrating what was completed and that the issue was addressed. Include the applicable record or location where appropriate."
+    ],
+    [
+      "Closed Date",
+      "Date the action was verified as complete and closed."
+    ],
+    [
+      "Notes",
+      "Optional additional context that is useful for managing or understanding the action but does not belong in the other fields."
+    ],
+    [
+      "List Worksheet"
+    ],
+    [
+      "List - Primary Root Cause",
+      "Definition"
+    ],
+    [
+      "Standard Unclear",
+      "The applicable standard exists, but its requirements, instructions, or expected outcomes are ambiguous, incomplete, conflicting, or insufficiently specific to support consistent execution. Correcting the standard should reduce recurrence. "
+    ],
+    [
+      "Tool / Template Friction",
+      "The prescribed tool, template, or workflow materially makes proper execution difficult, inefficient, duplicative, or prone to error. Correcting the enabling mechanism should make compliance easier and more reliable. "
+    ],
+    [
+      "Training Gap",
+      "The standard exists and is sufficiently clear, but the associate was not adequately trained or prepared to execute it correctly. Correcting the knowledge or skill gap should reduce recurrence. "
+    ],
+    [
+      "Governance / Enforcement Gap",
+      "Management expectations, oversight, accountability, reinforcement, escalation, or follow-through were insufficient to drive consistent execution of the standard. This identifies a management-system problem rather than an isolated individual failure. "
+    ],
+    [
+      "Individual Adherence Gap",
+      "The standard was sufficiently clear, appropriate training and tools were available, reasonable capacity existed, and management expectations were established, but the associate nevertheless did not perform the required activity. This is the residual category for an individual execution/accountability failure after other systemic causes have been reasonably ruled out. "
+    ],
+    [
+      "",
+      "Guidance"
+    ],
+    [
+      "",
+      "Was the standard itself sufficiently clear?\n - No \u2192 Standard Unclear\nDid the tool/template/workflow enable reasonable execution?\n - No \u2192 Tool / Template Friction\nWas the person adequately trained to perform it?\n - No \u2192 Training Gap\nWere expectations, accountability, and management reinforcement adequate?\n - No \u2192 Governance / Enforcement Gap\nIf all of the above were adequate, did the person still fail to execute?\n - Yes \u2192 Individual Adherence Gap"
+    ]
+  ],
+  "scoringGuide": [
+    [
+      "Review Area",
+      "Question ID",
+      "Controlled Question",
+      "3 \u2014 Meets Expectation",
+      "2 \u2014 Partially Meets Expectation",
+      "1 \u2014 Does Not Meet Expectation",
+      "Typical Evidence",
+      "Evaluation Boundary"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.1",
+      "Are project records maintained in the Project Vault or another location permitted by the Project Vault SOP?",
+      "Material records are in Project Vault or permitted alternate locations with required traceability.",
+      "Most records comply, but some material records or required links are inconsistently maintained.",
+      "Material records are outside approved locations or cannot be traced to an approved repository.",
+      "Project Vault project folder and applicable standard subfolders; records applicable to the project; links to approved alternate storage locations, including large files, virtual machines, or client-hosted deliverables.",
+      "Evaluates whether records applicable to the project are maintained in an approved repository. Applicability depends on the project\u2019s scope, execution approach, and activities performed. The existence of a standard Project Vault folder or template does not, by itself, mean the corresponding record is required. Does not evaluate general file organization or the substantive adequacy of individual records."
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.2",
+      "Are the project\u2019s primary source records readily locatable so the reviewer can understand what was sold, how the project was established for execution, and where supporting QSR evidence is maintained?",
+      "Primary source records are readily found without material searching or PM assistance.",
+      "Records are ultimately found, but some require PM assistance or are stored unexpectedly.",
+      "Material source records cannot be reliably located or verified after clarification.",
+      "Contract/authorization; proposal; estimate/WBS; Workbook; Notebook; schedule; approved links.",
+      "Scores findability\u2014not the quality of each underlying process record."
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.3",
+      "Are project records organized, current, controlled, and sufficiently complete to support project execution, traceability, and reliable review?",
+      "Records are substantially current, controlled, and complete for the project stage.",
+      "Records are usable but contain material gaps, outdated information, unclear versions, or incomplete approvals.",
+      "Records are materially disorganized, outdated, uncontrolled, or incomplete.",
+      "Representative files; current logs/registers; approvals; revisions; links; final records.",
+      "Scores overall record integrity\u2014not isolated process-artifact failures."
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.1",
+      "Was Sales Handoff documented and effective in transferring the commercial, scope, schedule, budget, risk, client, and project-background information required by the PM and project team?",
+      "Handoff is documented and materially transfers the information needed for successful technical and commercial execution.",
+      "Handoff occurred and transferred meaningful information, but material elements, documentation, or communication are incomplete.",
+      "Handoff is absent, cannot be reliably evidenced, or fails to transfer material information needed for execution.",
+      "Sales Handover agenda and meeting minutes documenting discussion or transfer of applicable project information, including scope and deliverables, schedule, budget/WBS, risks and opportunities, client expectations/contacts, contractual or commercial considerations, and relevant project background; referenced or attached supporting records where identified in the handoff documentation; PM clarification where the documented handoff is unclear.",
+      "Evaluates whether applicable information was actually transferred from Sales to Operations, based primarily on the documented Sales Handover and targeted PM clarification where needed. The existence of underlying sales or project records alone does not demonstrate that the information was communicated during the handoff."
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.2",
+      "Was the Internal Kickoff documented and effective in aligning the project team on scope, schedule, budget, responsibilities, quality expectations, risks, and the execution approach?",
+      "Internal Kickoff is documented and materially aligns the project team on the required execution topics.",
+      "Kickoff occurred and provides meaningful alignment, but material topics, participants, minutes, or follow-up are incomplete.",
+      "Kickoff is absent, cannot be reliably evidenced, or does not materially align the project team on execution expectations.",
+      "Internal Kickoff agenda/minutes; RACI; proposal; schedule; WBS/budget; Risk Registry; quality-role assignments.",
+      "Scores internal team alignment; do not duplicate Sales Handoff or Client Kickoff unless separately deficient."
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.3",
+      "Was the Client Kickoff documented and effective in aligning ETG and the client on scope, deliverables, schedule, responsibilities, communications, quality, risks, dependencies, approvals, and success expectations?",
+      "Client Kickoff is documented and materially establishes shared understanding of the applicable project expectations.",
+      "Kickoff occurred and establishes meaningful alignment, but material topics, documentation, or follow-up are incomplete.",
+      "Kickoff is absent, cannot be reliably evidenced, or fails to establish material ETG/client alignment.",
+      "Client Kickoff agenda/minutes; proposal; deliverables; preliminary schedule; roles; communication expectations; risks/dependencies; approval expectations.",
+      "Scores initial ETG/client alignment; do not duplicate Internal Kickoff or ongoing project communications/reviews unless separately deficient."
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.1",
+      "Were all applicable PMLC project-management planning areas considered and appropriately tailored to the project\u2019s size, complexity, risk, contract, and execution needs?",
+      "All applicable PMLC project-management planning areas were considered, and the planning approach was appropriately tailored to the project\u2019s size, complexity, risk, contract, and execution needs. Material N/A or tailored treatment is reasonably supported.",
+      "Most applicable planning areas were considered, but one or more material areas were not clearly addressed, applicability or tailoring is inadequately supported, or the planning approach contains material gaps.",
+      "Required project-management planning was largely not performed or cannot be reliably evidenced, or material planning areas were not considered such that an appropriate project-management approach was not established.",
+      "Begin with the PM Plan Checklist and confirm that each applicable PMLC planning area was considered and that an appropriate planning approach was established for the project. Review supporting records only to the extent necessary to verify the existence and reasonable adequacy of the initial plan: Scope Management \u2014 Deliverables Log, Change Log, applicable scope/requirements records; Schedule Management \u2014 project schedule; Budget Management \u2014 WBS/budget and Intacct; Quality Management \u2014 Project Checkpoint and applicable quality planning; Resource Management \u2014 SRM/resource planning; Communications Management \u2014 Communication Plan; Risk Management \u2014 Risk Registry; Procurement Management \u2014 applicable procurement planning/records; Stakeholder Management \u2014 Stakeholder Registry. Detailed record maintenance and substantive execution of these controls are evaluated under subsequent questions where applicable.",
+      "Evaluates whether the applicable PMLC management areas were considered and appropriately tailored\u2014not the detailed completeness, currency, or ongoing effectiveness of each supporting control. Deficiencies covered by a more specific QSR question are scored under that question rather than duplicated here."
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.2",
+      "Were applicable Project Workbook components used and sufficiently populated to provide the required project-management records?",
+      "Applicable Project Workbook components are used and populated sufficiently to serve as the required project-management records for the project.",
+      "The Project Workbook is meaningfully used, but one or more material applicable components are incomplete, inconsistently populated, or require clarification to function as reliable project-management records",
+      "Applicable Project Workbook components are largely unused, absent, or insufficiently populated to provide reliable project-management records.",
+      "Applicable Project Workbook worksheets supporting the Project Management Plan, including the PM Plan Checklist, Communication Plan, Stakeholder Registry, Deliverables Log, Change Log, and Risk Registry. Each applicable worksheet should contain sufficient project-specific information to demonstrate that the applicable management area has been addressed and to function as the intended project-management record. Blank worksheets, template/example content, placeholders, or entries that do not provide enough information to understand what is being managed do not constitute sufficient population. Sufficient population is based on the information reasonably required for the worksheet to perform its intended role on the project and does not require entries for conditions or events that have not occurred.",
+      "Evaluates use and population of applicable Project Workbook components\u2014not the substantive effectiveness of the management processes represented by those components. Risk, change, review, and other controls having dedicated QSR questions are evaluated under those questions."
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.3",
+      "Were applicable project roles, responsibilities, deliverables, stakeholder needs, communications, resources, and schedule commitments clearly established and maintained?",
+      "Applicable roles, deliverables, stakeholders, communications, resources, and schedule commitments are clearly established and maintained.",
+      "Applicable roles and responsibilities, deliverables, stakeholder needs, communications, resources, and schedule commitments were clearly established and maintained sufficiently to support project execution.",
+      "Most applicable elements were established, but one or more material elements became incomplete, unclear, outdated, or inconsistently maintained during execution.",
+      "Evidence that applicable execution-management elements were established and maintained as the project progressed, including: RACI or equivalent evidence of current project roles and responsibilities; Deliverables Log or equivalent evidence identifying applicable deliverables, ownership, status, and commitments; Stakeholder Registry showing applicable stakeholders and relevant engagement information; Communication Plan showing the project\u2019s communication needs, participants, methods, and cadence; current project schedule reflecting applicable activities, milestones, dependencies, and commitments; SRM/resource planning reflecting the resources needed for execution; and kickoff, project-review, or other project records that substantiate material updates or changes to these elements during execution. Evidence should be evaluated based on the project\u2019s scope, stage, complexity, and execution needs.",
+      "Evaluates establishment and ongoing maintenance of roles/responsibilities, deliverables, stakeholder needs, communications, resources, and schedule commitments. Does not score general Workbook completeness or controls addressed by dedicated risk, change, project-review, or other QSR questions."
+    ],
+    [
+      "Risk Management",
+      "4.1",
+      "Were material project risks identified, assessed, and documented at appropriate points beginning with estimating and Sales Handoff?",
+      "Material risks were identified and assessed at appropriate stages beginning with estimating/proposal development, and applicable risks were documented and carried forward through Sales Handoff into project planning/execution. Evidence demonstrates a reasonably complete and traceable progression of material risks appropriate to the project.",
+      "Meaningful risk identification and assessment occurred, but one or more material aspects are incomplete or inconsistent\u2014for example, some material risks were identified late, assessment was incomplete, transfer from estimating/Sales Handoff is only partially evidenced, or applicable risks were not consistently carried forward into project planning.",
+      "Material risk identification and assessment were largely absent, materially inadequate, or cannot be reliably evidenced after reasonable record review and PM clarification; or significant known risks were not transferred into project planning/execution such that the required risk-identification process was not meaningfully performed.",
+      "Evidence of risk identification and assessment at the applicable project stages, including: estimating/proposal risk assessment or risk register showing risks identified during development of the estimate and proposal; proposal or supporting sales records documenting material risks, assumptions, or uncertainties where applicable; Sales Handover agenda/minutes documenting transfer and discussion of identified risks and opportunities; and the initial Project Workbook Risk Registry showing risks carried forward from Sales and risks identified during project planning. PM clarification may be used to understand when and how risks were identified or transferred where the records are unclear.",
+      "Evaluates whether material risks were identified and assessed at appropriate stages and whether applicable pre-execution risks were carried forward into project planning. The Risk Registry may be reviewed as evidence of identification and transfer, but the risk-recording mechanism and traceability are evaluated under 4.2, and ongoing review, mitigation, ownership, status, and disposition are evaluated under 4.3."
+    ],
+    [
+      "Risk Management",
+      "4.2",
+      "Was the Project Workbook Risk Registry used and maintained, or was an acceptable equivalent clearly identified and traceable through the Project Workbook or project records?",
+      "The Project Workbook Risk Registry is used and maintained, or an equivalent is clearly identified, controlled, traceable, and functionally equivalent.",
+      "A risk record exists and is usable, but maintenance, traceability, equivalence, or identification of the alternate method is materially incomplete.",
+      "The expected risk record is absent, an alternate method is not clearly identified/equivalent, or material risks cannot be reliably traced.",
+      "Project Workbook Risk Registry; clearly identified alternate risk register; Workbook/reference link; project records showing the controlled equivalent.",
+      "Scores the risk-recording mechanism and traceability; do not duplicate initial risk identification or ongoing risk management unless separately deficient."
+    ],
+    [
+      "Risk Management",
+      "4.3",
+      "Were risks reviewed throughout execution, with risk status, impacts, mitigation actions, owners, changes, and dispositions updated as warranted?",
+      "Risks are actively reviewed and updated through execution with appropriate ownership, response actions, status, and disposition.",
+      "Ongoing review is evident, but material risk updates, ownership, response actions, or dispositions are incomplete or inconsistent.",
+      "Risks are not meaningfully monitored after identification, or current status/mitigation/ownership cannot be reliably verified.",
+      "Current Risk Registry; mitigation/contingency actions; owners; status/disposition history; Monthly Project Review records; escalation records.",
+      "Scores ongoing risk management; do not duplicate initial identification or registry existence unless separately deficient."
+    ],
+    [
+      "Change Management",
+      "5.1",
+      "Were potential or actual changes to scope, schedule, budget, requirements, design, or other approved project baselines identified and documented when they arose?",
+      "Material potential or actual changes to approved project baselines are recognized and documented when they arise, with sufficient information to understand the nature of the change.",
+      "Meaningful change identification is evident, but one or more material changes are documented late, inconsistently, or without sufficient information to understand what changed.",
+      "Material change conditions are not recognized or documented, or available records are insufficient to establish that changes were meaningfully identified when they arose.",
+      "Evidence that potential or actual changes to an approved project baseline were recognized and documented when identified. Begin with the Project Workbook Change Log and review applicable supporting records that may indicate a change, including client requests or direction, RFIs and clarifications, meeting minutes or action items, scope or requirements changes, design revisions, schedule deviations or requested date changes, budget/cost impacts, and other project records identifying a departure from an approved scope, schedule, budget, requirement, design, or other project baseline. Supporting records should be used to determine whether a material change condition arose and whether it was recognized and captured as a change; approval and authorization of the change are evaluated under Question 5.2.",
+      "Evaluates whether material potential or actual departures from approved project baselines were recognized and documented as change conditions when they arose. Supporting project records may be reviewed to identify evidence of change conditions that should have been captured. Does not evaluate whether the change was fully assessed, communicated, authorized, or approved before work proceeded (5.2), or whether an approved change was incorporated into affected project records and baselines (5.3)."
+    ],
+    [
+      "Change Management",
+      "5.2",
+      "Were changes evaluated, communicated, authorized, and approved before out-of-scope or at-risk work proceeded, except where the contract expressly permitted another approach?",
+      "Applicable changes are assessed for impact and receive required internal/client authorization before affected work proceeds.",
+      "Meaningful evaluation/approval occurred, but documentation, timing, communication, or required approval is materially incomplete.",
+      "Material out-of-scope/at-risk work proceeded without required evaluation or authorization, or approval cannot be reliably verified.",
+      "Change Log; impact assessment; change proposal/order; client approval; internal authorization; contract provisions; related communications.",
+      "Scores evaluation and authorization before work; do not duplicate initial change identification or incorporation into project records unless separately deficient."
+    ],
+    [
+      "Change Management",
+      "5.3",
+      "Were approved changes fully incorporated into applicable project-management, financial, schedule, technical, contractual, and client records?",
+      "Approved changes are incorporated into all materially affected project baselines, records, and client/contractual documentation.",
+      "Approved changes are reflected in most affected records, but one or more material updates are incomplete, delayed, or inconsistent.",
+      "Approved changes are not materially incorporated, leaving project records/baselines inconsistent with the approved change.",
+      "Approved Change Log entries; updated contract/PO; revised budget/EAC; revised schedule; updated requirements/design/deliverables; client records.",
+      "Scores implementation of approved changes into affected records; do not duplicate whether the change was identified or approved unless separately deficient."
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.1",
+      "Were project reviews conducted at required or appropriate intervals, including applicable project checkpoints and recurring project reviews?",
+      "All applicable required Project Checkpoint Reviews were completed and documented, and recurring Project Reviews occurred at a reasonably consistent cadence appropriate to the project and its execution period.",
+      "Meaningful review discipline is evident, but one or more applicable Project Checkpoints were missed or materially late, or recurring Project Reviews contain material gaps or inconsistent intervals.",
+      "Applicable required Project Checkpoints were largely not performed/documented, recurring Project Review discipline was largely absent, or the available record is insufficient to establish that meaningful recurring project reviews occurred.",
+      "Evidence that applicable Project Checkpoint Reviews and recurring Project Reviews occurred at the required or appropriate intervals. For Project Checkpoints, review the applicable 5%, 10%, and 100% Project Checkpoint records based on the project\u2019s stage and cost-budget completion. For recurring Project Reviews, review dated Monthly Project Review records/minutes across the applicable execution period to determine whether a reasonably consistent review cadence was maintained. Review dates, completed templates/minutes, and other contemporaneous records may be used to establish when reviews occurred. PM clarification may be used where timing or applicability is unclear but does not replace required documented review evidence.",
+      "Evaluates whether applicable Project Checkpoint Reviews and recurring Project Reviews occurred and were documented at the required or appropriate intervals. Does not evaluate the adequacy of topics covered during the reviews (6.2) or whether decisions and actions resulting from the reviews were followed through (6.3)."
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.2",
+      "Did project reviews address current scope, schedule, budget and forecast, risks, changes, deliverables, quality, resources, client needs, and other material project conditions as applicable?",
+      "Reviews consistently address the material project-control topics applicable at the time of review.",
+      "Reviews address many key topics, but one or more material project conditions are omitted, outdated, or reviewed inconsistently.",
+      "Reviews are perfunctory or fail to address material project-control conditions needed to understand and manage performance.",
+      "Monthly Project Review agenda/minutes; current schedule; budget/EAC/forecast; Risk Registry; Change Log; quality/checkpoint status; resource status.",
+      "Scores review content and coverage; do not duplicate review cadence or action follow-through unless separately deficient."
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.3",
+      "Were decisions, actions, owners, due dates, escalations, and follow-up resulting from project reviews documented and carried through?",
+      "Material decisions/actions from reviews are documented with ownership and follow-through, including escalation where warranted.",
+      "Action management is evident, but material owners, due dates, closure evidence, escalation, or follow-up are incomplete or inconsistent.",
+      "Material review decisions/actions are not documented, assigned, followed through, or escalated when needed.",
+      "Project-review action-item tables; meeting minutes; owner/due-date tracking; completion dates; escalation communications; follow-up records.",
+      "Scores action management resulting from reviews; do not duplicate whether reviews occurred or what topics they covered unless separately deficient."
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.1",
+      "Were applicable technical, administrative, financial, contractual, and client closeout activities completed and documented?",
+      "Applicable closeout activities across the relevant administrative, financial, technical, contractual, and client areas were completed and documented, with no material unresolved closeout items.",
+      "Meaningful closeout was performed and documented, but one or more material applicable closeout activities remain incomplete, unresolved, or inadequately documented.",
+      "Material applicable closeout activities were largely not completed, were not meaningfully documented, or the available evidence is insufficient to establish that the project underwent a reliable closeout process.",
+      "Internal Project Closeout and, when applicable, Client Project Closeout agenda/minutes documenting completion of applicable closeout activities. Review evidence across the following applicable areas: administrative closeout \u2014 final time and expense entry, project-file cleanup, return/archive of project assets and other administrative completion activities; financial closeout \u2014 final cost/budget reconciliation, vendor invoices and payments, purchase-order closure, change-order disposition, final billing and related financial obligations; technical closeout \u2014 confirmation that applicable engineering, design, manufacturing, commissioning, and project scope activities are complete; contractual/client closeout \u2014 confirmation that contractual obligations and outstanding client items have been addressed and the project is ready for formal closure. Specific final deliverables, turnover packages, testing/acceptance records and client signoffs are evaluated under 7.2, and lessons learned are evaluated under 7.3.",
+      "Evaluates overall completion of the applicable project-closeout process across administrative, financial, technical, contractual, and client activities. Does not duplicate the detailed completeness, approval, storage, or acceptance of final deliverables and turnover records evaluated under 7.2, or lessons-learned capture and improvement follow-up evaluated under 7.3."
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.2",
+      "Were final deliverables, testing and acceptance records, turnover information, approved technical records, client signoffs, and other required closeout records completed and stored appropriately?",
+      "Applicable final deliverables, testing/acceptance, turnover, approvals/signoffs, and technical records are complete and stored appropriately.",
+      "Most final records are complete and retrievable, but one or more material deliverables, approvals, turnover items, or storage controls are incomplete.",
+      "Material final deliverables/acceptance/turnover records are missing, unapproved, or cannot be reliably verified in the project record.",
+      "Turnover Package/transmittal; FAT/SAT/commissioning records; acceptance/signoff; as-builts; approved technical deliverables; training records; Vault records.",
+      "Scores final deliverable, acceptance, turnover, and record completion; do not duplicate broader administrative/financial closeout or lessons learned."
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.3",
+      "Were lessons learned captured during the project and consolidated at closeout into useful recommendations, with project-specific and quality-system improvement opportunities identified for follow-up where warranted?",
+      "Lessons are captured during execution and consolidated at closeout into clear, useful insights/actions for future project and quality-system improvement.",
+      "Meaningful lessons are documented, but capture, consolidation, context, recommendations, or follow-up identification is materially incomplete.",
+      "Lessons learned are largely absent, cannot be reliably evidenced, or are too incomplete to provide useful improvement learning.",
+      "Lessons Learned Log; lessons learned meeting minutes; action items/recommendations; reusable asset/case-study identification; closeout records.",
+      "Scores lessons learned and improvement capture; do not duplicate general closeout completion or final deliverable records unless separately deficient."
+    ]
+  ],
+  "sourceMatrix": [
+    [
+      "Review Area",
+      "Question ID",
+      "Source Document",
+      "Section",
+      "Page",
+      "Requirement / Relevance",
+      "Source File"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.1",
+      "OPS-SOP-Project-Vault",
+      "\u00a71\u20132",
+      "3",
+      "Establishes standard project storage architecture and approved storage requirements.",
+      "OPS-SOP-Project-Vault.docx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.1",
+      "OPS-SOP-Project-Vault",
+      "\u00a75.4\u20135.8",
+      "4\u20135",
+      "Defines folder architecture and permitted large-file and virtual-machine storage.",
+      "OPS-SOP-Project-Vault.docx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.1",
+      "OPS-SOP-Project-Vault",
+      "\u00a75.14.1\u20135.14.4",
+      "7\u20138",
+      "Defines treatment of client-hosted deliverables and required tracking.",
+      "OPS-SOP-Project-Vault.docx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.1",
+      "OPS-SP-System Development Life Cycle",
+      "\u00a75.1.9",
+      "5",
+      "Requires project-related files to follow the Project Vault SOP.",
+      "OPS-SP-System-Development-Life-Cycle.pdf"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.2",
+      "QSR Program Discussion Summary",
+      "\u00a7\u00a77\u20139",
+      "5\u20137",
+      "Establishes file-first review, PM clarification, and evidence-location treatment.",
+      "QSR Program Discussion Summary 260707.docx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.2",
+      "Project Notebook",
+      "Sales Handover Agenda",
+      "16",
+      "Identifies primary source records expected during handoff preparation.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.2",
+      "Project Workbook",
+      "Information worksheet",
+      "N/A",
+      "Identifies integrated project-management records and expected storage location.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.3",
+      "OPS-SOP-Project-Vault",
+      "\u00a75.3\u20135.6",
+      "4",
+      "Defines organization, folder control, and project-file maintenance requirements.",
+      "OPS-SOP-Project-Vault.docx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.3",
+      "OPS-SOP-Project-Vault",
+      "\u00a75.14.1\u20135.14.4",
+      "7\u20138",
+      "Requires approved, named, version-controlled final records and centralized tracking.",
+      "OPS-SOP-Project-Vault.docx"
+    ],
+    [
+      "Project Record Accessibility / Organization",
+      "1.3",
+      "OPS-SP-System Development Life Cycle",
+      "\u00a75.1.2\u20135.1.9",
+      "5",
+      "Requires documented approvals, controlled records, client signoffs, and Vault storage.",
+      "OPS-SP-System-Development-Life-Cycle.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.1.2",
+      "6",
+      "Defines Sales to Operations Handover intent, required agenda/minutes, and transfer of scope, objectives, Client expectations, risks/opportunities, and project history.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.1",
+      "OPS-SOP-Project Execution",
+      "\u00a77.1 and Attachment A \u00a78.1",
+      "4\u20135",
+      "BDM must provide project information to the PM; identifies Sales Handover Agenda in the Project Notebook as the execution tool.",
+      "OPS-SOP-Project-Execution.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.1",
+      "Project Notebook",
+      "Sales Handover Agenda Template",
+      "Internal Page 16",
+      "Identifies expected preparation records and discussion topics: contract/authorization, proposal, estimate/WBS, schedule, scope, budget, risks/opportunities, and contacts.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.2",
+      "8\u20139",
+      "Defines Internal Kickoff intent, required agenda, RACI review, formal minutes, and alignment on scope, schedule, budget, PMP, quality, roles, and responsibilities.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.2",
+      "Project Notebook",
+      "Internal Kickoff Agenda Template",
+      "Internal Page 18",
+      "Provides standard Internal Kickoff topics covering project overview, scope, schedule, budget, quality, risk, safety, roles, and closeout expectations.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.2",
+      "OPS-SOP-Project Execution",
+      "\u00a77.2 and Attachment A \u00a78.1",
+      "4\u20135",
+      "PM is accountable for PMLC/SDLC execution and team role clarity; current Project Notebook/Workbook tools are required for execution.",
+      "OPS-SOP-Project-Execution.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.3",
+      "9",
+      "Defines Client Kickoff intent, required agenda/minutes, and alignment on objectives, scope, schedule, budget, quality, responsibilities, and success measures.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.3",
+      "Project Notebook",
+      "Client Kickoff Guidance",
+      "Instructions Pages 5\u20138",
+      "Provides preparation and discussion guidance for scope, deliverables, schedule, responsibilities, communications, risks/dependencies, approvals, and success criteria.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Sales Handoff / Kickoff",
+      "2.3",
+      "Project Notebook",
+      "Client Kickoff Agenda Template",
+      "Client Pages 34\u201335",
+      "Provides the standard documented Client Kickoff agenda and meeting-minute structure.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.2.1",
+      "6\u20137",
+      "Requires a Project Management Plan addressing scope, schedule, budget, quality, resources, communications, risks, procurement, stakeholders, and deviations.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.1",
+      "OPS-SOP-Project Execution",
+      "\u00a75, \u00a77.2, Attachment A \u00a78.1",
+      "3\u20135",
+      "Requires compliance with PMLC/SDLC and use of the current Project Workbook/Notebook; identifies the PM Plan Checklist and planning tools.",
+      "OPS-SOP-Project-Execution.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.1",
+      "Project Workbook",
+      "PM Plan Checklist and planning worksheets",
+      "N/A",
+      "Provides the standard integrated planning tools used to tailor and document project-management planning.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.2",
+      "OPS-SOP-Project Execution",
+      "\u00a75 and Attachment A \u00a78.1",
+      "3\u20135",
+      "Requires current Project Workbook use and identifies PM Plan Checklist, Communication Plan, Stakeholder Registry, Deliverables Log, Change Log, and Risk Registry.",
+      "OPS-SOP-Project-Execution.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.2",
+      "Project Workbook",
+      "PM Plan Checklist; RACI; Communication Plan; Stakeholder Registry; Deliverables Log; Change Log; Risk Registry; Lessons Learned Log",
+      "N/A",
+      "Contains the standard project-management records intended to be populated and maintained throughout execution.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.2.1",
+      "6\u20137",
+      "Requires the Project Management Plan to remain current and actionable through execution.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.2.1",
+      "7",
+      "Requires planning for scope/deliverables, schedule, resources, communications, and stakeholder engagement.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.7\u20136.3.8",
+      "11",
+      "Requires maintained resource allocation and communication plans during execution.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.12",
+      "13",
+      "Requires identification/analysis of stakeholders and maintenance of the stakeholder register.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Planning / Workbook Usage",
+      "3.3",
+      "OPS-SOP-Project Execution",
+      "\u00a77.2",
+      "4",
+      "PM is responsible for assigning project team members and ensuring roles and responsibilities are clearly understood.",
+      "OPS-SOP-Project-Execution.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.1",
+      "OPS-SOP-Estimating and Proposals",
+      "\u00a75.2 Risk",
+      "5",
+      "Requires risks to be identified, assessed, and mitigations documented during estimating/proposal development and formally transferred to project execution.",
+      "OPS-SOP-Estimating-and-Proposals.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.2.1 and \u00a76.3.11",
+      "7, 12\u201313",
+      "Requires project risk identification/assessment during planning and continued risk management during execution.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.1",
+      "Project Notebook",
+      "Sales Handover Agenda Template",
+      "Internal Page 16",
+      "Requires risks/opportunities identified during sales to be captured in the Project Workbook Risk Registry.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.11",
+      "12\u201313",
+      "Requires maintenance and updating of the Risk Register throughout the project life cycle.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.2",
+      "OPS-SOP-Project Execution",
+      "Attachment A \u00a78.1",
+      "5",
+      "Identifies Project Workbook Risk Registry as the standard Risk Management tool.",
+      "OPS-SOP-Project-Execution.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.2",
+      "Project Workbook",
+      "Risk Registry worksheet",
+      "N/A",
+      "Provides the standard Project Workbook risk-recording mechanism.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Risk Management",
+      "4.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.11",
+      "12\u201313",
+      "Requires risk mitigation and continuous monitoring/review of identified and emerging risks throughout the project life cycle.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.3",
+      "Project Notebook",
+      "Monthly Project Review Template",
+      "Monthly Project Review Page 57",
+      "Directs review of Risk Registry entries, owners, impact scores, mitigation/contingency plans, client-satisfaction risks, and escalation needs.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Risk Management",
+      "4.3",
+      "Project Workbook",
+      "Risk Registry worksheet",
+      "N/A",
+      "Provides fields used to maintain current risk status, ownership, assessment, and response information.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Change Management",
+      "5.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a75.1.3\u20135.1.4 and \u00a76.3.1",
+      "5, 8",
+      "Requires adherence to change management for scope/schedule/budget changes and formalization of work beyond contractual scope.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Change Management",
+      "5.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.4\u20136.3.6",
+      "9\u201311",
+      "Requires change management when scope, schedule, or budget changes occur.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Change Management",
+      "5.1",
+      "Project Workbook",
+      "Change Log worksheet",
+      "N/A",
+      "Provides the standard record for identifying and tracking project changes.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Change Management",
+      "5.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a75.1.1 and \u00a76.3.1",
+      "4, 8",
+      "Prohibits at-risk/out-of-scope work without approval and requires impact assessment plus appropriate internal and Client approvals before implementation.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Change Management",
+      "5.2",
+      "Project Workbook",
+      "Change Log worksheet",
+      "N/A",
+      "Tracks change definition, submission/approval status, and related change-control information.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Change Management",
+      "5.2",
+      "Project Notebook",
+      "Monthly Project Review Template",
+      "Monthly Project Review Page 57",
+      "Directs review of the Change Request Log for outstanding proposals and purchase orders.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Change Management",
+      "5.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.1",
+      "8",
+      "Requires approved changes to be recorded in detailed logs with impact and approval status and then implemented in a controlled manner.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Change Management",
+      "5.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.4\u20136.3.8",
+      "9\u201311",
+      "Connects change management to affected scope, schedule, budget, resources, and communications.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Change Management",
+      "5.3",
+      "Project Workbook",
+      "Change Log and affected project-management worksheets",
+      "N/A",
+      "Provides the standard change record and affected project-management records that should reflect approved changes.",
+      "Project Workbook_rev3_[ProjectId] (1).xlsx"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.10",
+      "12",
+      "Requires documented project reviews and completion of project reviews at 5%, 50%, and 100% of cost budget completion.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.1",
+      "Project Notebook",
+      "Notebook Guidance",
+      "Instructions Page 3",
+      "States that monthly project reviews are executed per the Project Review Checklist.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.1",
+      "Project Notebook",
+      "Monthly Project Review Template",
+      "Monthly Project Review Pages 56\u201358",
+      "Provides the standard recurring project-review template and action-item structure.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.2",
+      "Project Notebook",
+      "Monthly Project Review Template",
+      "Monthly Project Review Page 57",
+      "Requires review of risk, schedule, resources, budget, quality/checkpoints, forecast, billing, change orders, and technical/resource challenges.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.10",
+      "12",
+      "Requires project reviews to assess progress, quality, and alignment with project objectives.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.4\u20136.3.12",
+      "9\u201313",
+      "Defines the project-control areas that require ongoing management: scope, schedule, budget, resources, communications, quality, risk, and stakeholders.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.3",
+      "Project Notebook",
+      "Monthly Project Review Template",
+      "Monthly Project Review Pages 57\u201358",
+      "Provides an Action Items table with owner, date, description, completion status, and completion date for review follow-up.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Project Monitoring / Review Cadence",
+      "6.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3",
+      "7\u201313",
+      "Execution and Monitoring/Controlling require continuous monitoring and adjustment to maintain alignment with project objectives.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.1",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.4",
+      "14\u201315",
+      "Defines project closure as completing final acceptance, documentation, billing, client feedback, and lessons-learned activities.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.1",
+      "OPS-SP-System Development Life Cycle",
+      "\u00a76.9.3 Technical Project Closeout",
+      "21",
+      "Requires confirmation of completed scope, closeout participation, proper storage of deliverables/records, completed lessons entries, returned assets, and final time/expense submission.",
+      "OPS-SP-System-Development-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.1",
+      "Project Notebook",
+      "Internal Project Closeout Agenda Template",
+      "Internal Pages 25\u201326",
+      "Provides structured closeout review of administrative, financial, engineering, quality, acceptance, and lessons-learned activities.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.1",
+      "Project Notebook",
+      "Client Project Closeout Agenda Template",
+      "Client Pages 40\u201341",
+      "Provides structured client closeout review including financial, engineering, design, commissioning, quality, acceptance, and lessons learned.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.2",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.4.1 Formal Acceptance",
+      "14",
+      "Requires Turnover Package delivery and documented Client acceptance stored in Project Vault.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.2",
+      "OPS-SP-System Development Life Cycle",
+      "\u00a76.9.1\u20136.9.3",
+      "20\u201321",
+      "Requires training records, turnover package/transmittal with receipt confirmation, technical closeout, and proper storage of deliverables/records.",
+      "OPS-SP-System-Development-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.2",
+      "Project Notebook",
+      "Client Project Closeout Agenda Template",
+      "Client Pages 40\u201341",
+      "Calls for final design/commissioning documentation, SAT results, formal acceptance/signoff, and confirmation of Turnover Package delivery.",
+      "Project-Notebook.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.3.13 Active Lessons Learned",
+      "13\u201314",
+      "Requires lessons to be captured and documented during execution in the Lessons Learned Log and applied to improve project outcomes.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.3",
+      "OPS-SP-Project Management Life Cycle",
+      "\u00a76.4.4 Post-Project Lessons Learned Meeting",
+      "15",
+      "Defines formal post-project lessons-learned discussion and documentation of key insights and future action items.",
+      "OPS-SP-Project-Management-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.3",
+      "OPS-SP-System Development Life Cycle",
+      "\u00a76.9.3 Technical Project Closeout",
+      "21",
+      "Requires lessons-learned log entries to be complete and participation in lessons-learned meetings during technical closeout.",
+      "OPS-SP-System-Development-Life-Cycle.pdf"
+    ],
+    [
+      "Closeout / Lessons Learned",
+      "7.3",
+      "Project Notebook",
+      "Lessons Learned Guidance and Lessons Learned Agenda Template",
+      "Instructions Pages 10\u201313; Internal Pages 27\u201328",
+      "Provides the standard approach for reviewing the Lessons Learned Log, consolidating insights/recommendations, and identifying follow-up actions.",
+      "Project-Notebook.pdf"
+    ]
+  ]
+}

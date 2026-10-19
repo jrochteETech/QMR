@@ -10,7 +10,7 @@ A project quality review system with a Go API, vanilla HTML/CSS/JavaScript front
 - Searchable cross-project question and action views
 - Admin-managed question catalog, projects, and users
 - One-time temporary passwords with mandatory password change after creation or reset
-- Workbook-backed expandable instructions, scoring guidance, and source matrix
+- Built-in expandable instructions, scoring guidance, and source matrix
 - Project labor financials with calculated BAC margin and margin variance
 - Question-level PM clarification, follow-up flags, inline tasks, and review time totals
 - Dashboard metrics for conformance, evidence gaps, reviews, and overdue actions
@@ -41,4 +41,4 @@ Run PostgreSQL, set `DATABASE_URL`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD`, then ru
 go run .
 ```
 
-The schema is applied idempotently at startup. Controlled lists are based on `Start/QSR_Pilot_R01.xlsx`; question definitions are intentionally managed in the Administration view because that workbook does not contain a question catalog.
+The schema is applied idempotently at startup. Instructions and controlled lists are packaged with the application, and question definitions are managed in the Administration view.
