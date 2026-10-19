@@ -199,7 +199,7 @@ async function renderProjects() {
     const params = new URLSearchParams({ search: document.querySelector("#project-search").value, status: document.querySelector("#project-status").value });
     try {
       const projects = await api(`/api/projects?${params}`);
-      document.querySelector("#project-rows").innerHTML = projects.map(item => `<tr data-link="#/projects/${item.id}"><td><span class="code">${escapeHTML(item.projectCode)}</span><span class="cell-sub">${escapeHTML(item.name)}</span></td><td>${escapeHTML(item.businessUnit)}</td><td>${escapeHTML(item.customer || "-")}</td><td>${statusBadge(item.status)}</td><td>${item.bacLaborMargin}</td><td>${item.actLabMargin}</td><td>${item.reviewCount}</td><td>${item.openActions}</td></tr>`).join("") || emptyRow(8, "No projects found", "Adjust the filters or create a project.");
+      document.querySelector("#project-rows").innerHTML = projects.map(item => `<tr data-link="#/projects/${item.id}"><td><span class="code">${escapeHTML(item.projectCode)}</span><span class="cell-sub">${escapeHTML(item.name)}</span></td><td>${escapeHTML(item.businessUnit)}</td><td>${escapeHTML(item.customer || "-")}</td><td>${statusBadge(item.status)}</td><td>${formatPercent(item.bacLaborMargin)}</td><td>${formatPercent(item.actLabMargin)}</td><td>${item.reviewCount}</td><td>${item.openActions}</td></tr>`).join("") || emptyRow(8, "No projects found", "Adjust the filters or create a project.");
     } catch (error) { showError(error); }
   };
   document.querySelector("#project-search").addEventListener("input", debounce(refresh));
