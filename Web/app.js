@@ -458,31 +458,12 @@ function openActionDrawer(item = null, context = {}) {
 }
 
 async function renderAdmin() {
-  const [questions, users] = await Promise.all([api("/api/admin/questions"), api("/api/admin/users")]);
-  const questionRows = questions.map(item => `<tr data-edit-question="${item.id}"><td><span class="code">${escapeHTML(item.questionCode)}</span></td><td>${escapeHTML(item.reviewArea)}</td><td><div class="truncate">${escapeHTML(item.questionText)}</div></td><td>${item.sortOrder}</td><td>${statusBadge(item.active ? "Active" : "Inactive")}</td></tr>`).join("");
+  const users = await api("/api/admin/users");
   const userRows = users.map(item => `<tr><td><span class="cell-title">${escapeHTML(item.name)}</span><span class="cell-sub">${escapeHTML(item.email)}</span></td><td>${escapeHTML(item.role)}</td><td>${statusBadge(item.active ? "Active" : "Inactive")}</td><td><button class="button secondary small" data-reset-user="${item.id}" data-user-name="${escapeHTML(item.name)}">Reset password</button></td></tr>`).join("");
-  shell("admin", "Administration", "Manage the question catalog and application users", `
-    <section class="panel"><div class="panel-head"><h2>Question catalog</h2><button class="button small" data-new-question>+ Add question</button></div><div class="table-wrap"><table><thead><tr><th>Code</th><th>Review area</th><th>Question</th><th>Order</th><th>Status</th></tr></thead><tbody>${questionRows || emptyRow(5, "No questions configured", "Add the first review question to begin.")}</tbody></table></div></section>
+  shell("admin", "Administration", "Manage application users", `
     <section class="panel"><div class="panel-head"><h2>Users</h2><button class="button small" data-new-user>+ Add user</button></div><div class="table-wrap"><table><thead><tr><th>User</th><th>Role</th><th>Status</th><th></th></tr></thead><tbody>${userRows}</tbody></table></div></section>`);
-  document.querySelector("[data-new-question]").addEventListener("click", () => openQuestionDrawer());
-  document.querySelectorAll("[data-edit-question]").forEach(row => row.addEventListener("click", () => openQuestionDrawer(questions.find(item => item.id === Number(row.dataset.editQuestion)))));
   document.querySelector("[data-new-user]").addEventListener("click", showNewUser);
   document.querySelectorAll("[data-reset-user]").forEach(button => button.addEventListener("click", () => resetUser(button.dataset.resetUser, button.dataset.userName)));
-}
-
-function openQuestionDrawer(question = null) {
-  const item = question || { active: true, sortOrder: 0 };
-  const body = `<form id="question-form" class="form-grid"><div class="form-field"><label class="required">Question code</label><input class="field" name="questionCode" aria-label="Question code" value="${escapeHTML(item.questionCode)}" required></div><div class="form-field"><label>Sort order</label><input class="field" name="sortOrder" aria-label="Sort order" type="number" value="${item.sortOrder}"></div><div class="form-field full"><label class="required">Review area</label><select name="reviewArea" aria-label="Review area" required>${optionList(state.options.reviewAreas, item.reviewArea)}</select></div><div class="form-field full"><label class="required">Question</label><textarea name="questionText" aria-label="Question" required>${escapeHTML(item.questionText)}</textarea></div><div class="form-field full"><label>Reviewer guidance</label><textarea name="guidance" aria-label="Reviewer guidance">${escapeHTML(item.guidance)}</textarea></div>${question ? `<div class="form-field full"><label class="check-row"><input name="active" aria-label="Active" type="checkbox" ${item.active ? "checked" : ""}> Active</label></div>` : ""}<div class="form-error full"></div></form>`;
-  openDrawer(question ? "Edit question" : "Add question", "Question catalog", body, `<button class="button secondary" data-close-drawer>Cancel</button><button class="button" type="submit" form="question-form">Save question</button>`);
-  document.querySelector("#question-form").addEventListener("submit", async event => {
-    event.preventDefault();
-    const formElement = event.currentTarget;
-    const form = new FormData(formElement);
-    const payload = Object.fromEntries(form);
-    payload.sortOrder = Number(payload.sortOrder || 0);
-    payload.active = question ? form.has("active") : true;
-    try { await api(question ? `/api/admin/questions/${question.id}` : "/api/admin/questions", { method: question ? "PUT" : "POST", body: payload }); closeDrawer(); notify("Question saved"); renderAdmin(); } catch (error) { formElement.querySelector(".form-error").textContent = error.message; }
-  });
 }
 
 function showNewUser() {

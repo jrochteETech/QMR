@@ -72,12 +72,6 @@ CREATE TABLE IF NOT EXISTS review_questions (
     PRIMARY KEY (review_id, question_id)
 );
 
-INSERT INTO review_questions (review_id, question_id, question_code, review_area, question_text, guidance, sort_order)
-SELECT r.id, q.id, q.question_code, q.review_area, q.question_text, q.guidance, q.sort_order
-FROM reviews r CROSS JOIN question_definitions q
-WHERE q.active
-ON CONFLICT (review_id, question_id) DO NOTHING;
-
 CREATE TABLE IF NOT EXISTS review_answers (
     id BIGSERIAL PRIMARY KEY,
     review_id BIGINT NOT NULL REFERENCES reviews(id) ON DELETE CASCADE,

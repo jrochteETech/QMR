@@ -25,6 +25,7 @@ type app struct {
 	db           *pgxpool.Pool
 	secureCookie bool
 	instructions instructionData
+	questions    []controlledQuestion
 }
 
 func main() {
@@ -47,7 +48,14 @@ func main() {
 	if err != nil {
 		log.Fatalf("load instructions: %v", err)
 	}
-	application := &app{db: db, secureCookie: strings.EqualFold(env("COOKIE_SECURE", "false"), "true"), instructions: instructions}
+	questions, err := loadQuestions(assets)
+	if err != nil {
+		log.Fatalf("load questions: %v", err)
+	}
+	application := &app{db: db, secureCookie: strings.EqualFold(env("COOKIE_SECURE", "false"), "true"), instructions: instructions, questions: questions}
+	if err := application.syncQuestionDefinitions(ctx); err != nil {
+		log.Fatalf("synchronize questions: %v", err)
+	}
 	if err := application.ensureBootstrapAdmin(ctx); err != nil {
 		log.Fatalf("bootstrap admin: %v", err)
 	}
@@ -112,9 +120,6 @@ func (application *app) routes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /api/actions", application.auth(application.createAction))
 	mux.HandleFunc("PUT /api/actions/{id}", application.auth(application.updateAction))
 
-	mux.HandleFunc("GET /api/admin/questions", application.admin(application.listQuestionDefinitions))
-	mux.HandleFunc("POST /api/admin/questions", application.admin(application.createQuestionDefinition))
-	mux.HandleFunc("PUT /api/admin/questions/{id}", application.admin(application.updateQuestionDefinition))
 	mux.HandleFunc("GET /api/admin/users", application.admin(application.listUsers))
 	mux.HandleFunc("POST /api/admin/users", application.admin(application.createUser))
 	mux.HandleFunc("POST /api/admin/users/{id}/reset-password", application.admin(application.resetPassword))

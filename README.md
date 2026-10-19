@@ -8,7 +8,7 @@ A project quality review system with a Go API, vanilla HTML/CSS/JavaScript front
 - Workbook-derived result, evidence, root-cause, system-impact, and action fields
 - Question answer drawer with linked corrective or improvement actions
 - Searchable cross-project question and action views
-- Admin-managed question catalog, projects, and users
+- Built-in controlled question catalog with admin-managed projects and users
 - One-time temporary passwords with mandatory password change after creation or reset
 - Built-in expandable instructions, scoring guidance, and source matrix
 - Project labor financials with calculated BAC margin and margin variance
