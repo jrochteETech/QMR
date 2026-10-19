@@ -295,7 +295,7 @@ func (application *app) getReview(response http.ResponseWriter, request *http.Re
 			COALESCE(a.pm_clarification_used,FALSE),COALESCE(a.pm_clarification_summary,''),COALESCE(a.follow_up_required,FALSE),
 			(SELECT COUNT(*) FROM actions ac WHERE ac.review_id=$1 AND ac.question_id=q.question_id)
 		FROM review_questions q LEFT JOIN review_answers a ON a.question_id=q.question_id AND a.review_id=q.review_id
-		WHERE q.review_id=$1 ORDER BY q.review_area,q.sort_order,q.question_code`, id)
+		WHERE q.review_id=$1 ORDER BY q.sort_order,q.question_code`, id)
 	if err != nil {
 		handleDBError(response, err)
 		return

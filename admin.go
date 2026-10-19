@@ -18,7 +18,7 @@ type questionDefinition struct {
 }
 
 func (application *app) listQuestionDefinitions(response http.ResponseWriter, request *http.Request) {
-	rows, err := application.db.Query(request.Context(), "SELECT id,question_code,review_area,question_text,guidance,sort_order,active FROM question_definitions ORDER BY review_area,sort_order,question_code")
+	rows, err := application.db.Query(request.Context(), "SELECT id,question_code,review_area,question_text,guidance,sort_order,active FROM question_definitions ORDER BY sort_order,question_code")
 	if err != nil {
 		handleDBError(response, err)
 		return
