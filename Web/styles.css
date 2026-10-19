@@ -183,8 +183,10 @@ tbody tr[data-link]:hover { background: #f5f9ff; cursor: pointer; }
 .badge.orange { background: #fff1df; color: var(--warning); }
 .badge.red { background: #fdeceb; color: var(--danger); }
 .badge.gray { background: #edf0f2; color: #596875; }
-.progress { width: 110px; height: 7px; overflow: hidden; border-radius: 8px; background: #e7ebee; }
-.progress > span { display: block; height: 100%; background: var(--blue); }
+.progress { width: 110px; height: 7px; display: block; overflow: hidden; border: 0; border-radius: 8px; background: #e7ebee; appearance: none; }
+.progress::-webkit-progress-bar { background: #e7ebee; border-radius: 8px; }
+.progress::-webkit-progress-value { background: var(--blue); border-radius: 8px; }
+.progress::-moz-progress-bar { background: var(--blue); border-radius: 8px; }
 
 .project-banner { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 18px; padding: 18px; margin-bottom: 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
 .detail-label { display: block; color: var(--muted); font-size: 12px; margin-bottom: 5px; }
