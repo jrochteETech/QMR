@@ -184,9 +184,15 @@
       "Scoring Guide Worksheet"
     ],
     [
+      "",
+      ""
+    ],
+    [
+      "",
       "Use the Scoring Guide worksheet to help reviewers assign consistent ratings for each QSR question. The Scoring Guide is intended to improve consistency between reviewers. It does not replace reviewer judgment, the controlling source requirements, or the need to consider the project\u2019s lifecycle stage and applicability. N/A and UTD are handled under the separate QSR scoring rules rather than the 3/2/1 question-specific criteria."
     ],
     [
+      "",
       "The reviewer should filter to the applicable Review Area or Question ID, compare the available evidence to the 3/2/1 criteria, consider the Typical Evidence and Key Boundary, and then enter the selected result on the Review Entry worksheet."
     ],
     [
@@ -232,17 +238,20 @@
       "Source Matrix Worksheet"
     ],
     [
+      "Source Matrix Column",
+      "Purpose"
+    ],
+    [
+      "",
       "Use the Source Matrix worksheet to identify the controlling source requirements that support each QSR question and to help the reviewer verify the basis for the scoring expectation."
     ],
     [
+      "",
       "The reviewer should filter the worksheet by Review Area and/or Question ID when additional source context is needed. Multiple rows for a question indicate that the expectation is supported by more than one applicable source."
     ],
     [
+      "",
       "The Source Matrix is intended to make the QSR requirements traceable and verifiable. It should be used together with the Scoring Guide: the Scoring Guide explains how to evaluate the question, while the Source Matrix identifies the controlling documents behind that expectation."
-    ],
-    [
-      "Source Matrix Column",
-      "Purpose"
     ],
     [
       "Review Area",
@@ -275,7 +284,9 @@
     [
       "Actions Worksheet"
     ],
+    ["",""],
     [
+      "",
       "An Action record is required for every Review Entry result of 1 \u2014 Does Not Meet Expectation or 2 \u2014 Partially Meets Expectation. Multiple related gaps may be addressed through a single Action when appropriate, provided each gap remains clearly traceable to that Action."
     ],
     [
