@@ -108,6 +108,7 @@ func (application *app) dashboard(response http.ResponseWriter, request *http.Re
 func (application *app) listProjects(response http.ResponseWriter, request *http.Request) {
 	search := "%" + strings.TrimSpace(request.URL.Query().Get("search")) + "%"
 	status := request.URL.Query().Get("status")
+	businessUnit := request.URL.Query().Get("businessUnit")
 	rows, err := application.db.Query(request.Context(), `
 		SELECT p.id, p.project_code, p.name, p.business_unit, p.status, p.customer, p.project_manager,
 			p.start_date, p.end_date, p.notes, p.bac_labor_revenue, p.bac_labor_cost,
@@ -118,8 +119,8 @@ func (application *app) listProjects(response http.ResponseWriter, request *http
 		FROM projects p
 		LEFT JOIN reviews r ON r.project_id = p.id
 		LEFT JOIN actions a ON a.review_id = r.id
-		WHERE (p.project_code ILIKE $1 OR p.name ILIKE $1 OR p.customer ILIKE $1) AND ($2 = '' OR p.status = $2)
-		GROUP BY p.id ORDER BY p.updated_at DESC`, search, status)
+		WHERE (p.project_code ILIKE $1 OR p.name ILIKE $1 OR p.customer ILIKE $1) AND ($2 = '' OR p.status = $2) AND ($3 = '' OR p.business_unit = $3)
+		GROUP BY p.id ORDER BY p.updated_at DESC`, search, status, businessUnit)
 	if err != nil {
 		handleDBError(response, err)
 		return
