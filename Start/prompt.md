@@ -38,10 +38,10 @@ Items to change:
 - On questions, add a Checkbox for 'Follow-Up Required'
 
 # Updates
-- All questions main table:
+[x] All questions main table:
     - take out evidence
     - add root cause with filter
-- Need an export of all data to put into AI to analyze patterns
+[ ] Need an export of all data to put into AI to analyze patterns
     - Projects, questions, actions
-- projects page dropdown for business unit
-- in all questions, when clicking a question, open the review page, but also open the question in the side bar
+[ ] projects page dropdown for business unit
+[ ] in all questions, when clicking a question, open the review page, but also open the question in the side bar

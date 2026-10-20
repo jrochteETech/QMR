@@ -194,9 +194,11 @@ async function renderDashboard() {
 
 async function renderProjects() {
   const adminAction = state.user.role === "admin" ? '<button class="button" data-new-project>+ New project</button>' : "";
-  shell("projects", "Projects", "Review activity and outstanding actions by project", '<section class="panel"><div class="toolbar"><input class="search" id="project-search" type="search" placeholder="Search code, project, or customer"><select id="project-status"><option value="">All statuses</option>'+optionList(state.options.projectStatuses, "", "All statuses").replace('<option value="">All statuses</option>', '')+'</select></div><div class="table-wrap"><table><thead><tr><th>Project</th><th>Business unit</th><th>Customer</th><th>Status</th><th>BAC Labor Margin</th><th>ACT LAB Margin</th><th>Reviews</th><th>Open actions</th></tr></thead><tbody id="project-rows"></tbody></table></div></section>', adminAction);
+  shell("projects", "Projects", "Review activity and outstanding actions by project", 
+    '<section class="panel"><div class="toolbar"><input class="search" id="project-search" type="search" placeholder="Search code, project, or customer"><select id="project-business-unit"><option value="">All business units</option>'+optionList(state.options.businessUnits, "", "All business units").replace('<option value="">All business units</option>', '')+'</select><select id="project-status"><option value="">All statuses</option>'+optionList(state.options.projectStatuses, "", "All statuses").replace('<option value="">All statuses</option>', '')+'</select></div><div class="table-wrap"><table><thead><tr><th>Project</th><th>Business unit</th><th>Customer</th><th>Status</th><th>BAC Labor Margin</th><th>ACT LAB Margin</th><th>Reviews</th><th>Open actions</th></tr></thead><tbody id="project-rows"></tbody></table></div></section>',
+     adminAction);
   const refresh = async () => {
-    const params = new URLSearchParams({ search: document.querySelector("#project-search").value, status: document.querySelector("#project-status").value });
+    const params = new URLSearchParams({ search: document.querySelector("#project-search").value, businessUnit: document.querySelector("#project-business-unit").value, status: document.querySelector("#project-status").value });
     try {
       const projects = await api(`/api/projects?${params}`);
       document.querySelector("#project-rows").innerHTML = projects.map(item => `<tr data-link="#/projects/${item.id}"><td><span class="code">${escapeHTML(item.projectCode)}</span><span class="cell-sub">${escapeHTML(item.name)}</span></td><td>${escapeHTML(item.businessUnit)}</td><td>${escapeHTML(item.customer || "-")}</td><td>${statusBadge(item.status)}</td><td>${formatPercent(item.bacLaborMargin)}</td><td>${formatPercent(item.actLabMargin)}</td><td>${item.reviewCount}</td><td>${item.openActions}</td></tr>`).join("") || emptyRow(8, "No projects found", "Adjust the filters or create a project.");
@@ -204,6 +206,7 @@ async function renderProjects() {
   };
   document.querySelector("#project-search").addEventListener("input", debounce(refresh));
   document.querySelector("#project-status").addEventListener("change", refresh);
+  document.querySelector("#project-business-unit").addEventListener("change", refresh);
   document.querySelector("[data-new-project]")?.addEventListener("click", () => openProjectDrawer());
   await refresh();
 }
