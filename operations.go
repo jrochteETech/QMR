@@ -57,7 +57,7 @@ func (application *app) listResults(response http.ResponseWriter, request *http.
 		LEFT JOIN review_answers a ON a.review_id=r.id AND a.question_id=q.question_id
 		WHERE TRUE
 			AND (p.project_code ILIKE $1 OR p.name ILIKE $1 OR q.question_code ILIKE $1 OR q.question_text ILIKE $1)
-			AND ($2='' OR q.primary_root_cause=$2) AND ($3='' OR q.review_area=$3) AND ($4='' OR COALESCE(a.result,'')=$4) AND ($5='' OR r.status=$5)
+			AND ($2='' OR a.primary_root_cause=$2) AND ($3='' OR q.review_area=$3) AND ($4='' OR COALESCE(a.result,'')=$4) AND ($5='' OR r.status=$5)
 		ORDER BY r.review_date DESC,p.project_code,q.review_area,q.sort_order,q.question_code`, search, query.Get("rootCause"), query.Get("area"), query.Get("result"), query.Get("status"))
 	if err != nil {
 		handleDBError(response, err)
