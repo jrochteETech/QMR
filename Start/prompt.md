@@ -36,3 +36,12 @@ Items to change:
 - I want the total time for each review to be displayed on the review history table for a project.
 - On questions, I need a checkbox for 'PM Clarification Used'. When checked, bring up a PM Clarification Summary text field.
 - On questions, add a Checkbox for 'Follow-Up Required'
+
+# Updates
+- All questions main table:
+    - take out evidence
+    - add root cause with filter
+- Need an export of all data to put into AI to analyze patterns
+    - Projects, questions, actions
+- projects page dropdown for business unit
+- in all questions, when clicking a question, open the review page, but also open the question in the side bar

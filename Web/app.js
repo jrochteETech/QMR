@@ -396,15 +396,25 @@ async function renderInstructions() {
 }
 
 async function renderQuestions() {
-  shell("questions", "All questions", "Question results across every project and review", `<section class="panel"><div class="toolbar"><input class="search" id="result-search" type="search" placeholder="Search projects or questions"><select id="result-area">${optionList(state.options.reviewAreas, "", "All review areas")}</select><select id="result-value">${optionList(state.options.results, "", "All results")}</select><select id="result-status">${optionList(state.options.reviewStatuses, "", "All review statuses")}</select></div><div class="table-wrap"><table><thead><tr><th>Project</th><th>Review</th><th>Question</th><th>Area</th><th>Result</th><th>Evidence</th><th>Actions</th></tr></thead><tbody id="result-rows"></tbody></table></div></section>`);
+  shell("questions", "All questions", "Question results across every project and review", 
+    `<section class="panel">
+    <div class="toolbar">
+    <input class="search" id="result-search" type="search" placeholder="Search projects or questions">
+    <select id="result-rootCause">${optionList(state.options.rootCauses, "", "All root causes")}</select>
+    <select id="result-area">${optionList(state.options.reviewAreas, "", "All review areas")}</select>
+    <select id="result-value">${optionList(state.options.results, "", "All results")}</select>
+    <select id="result-status">${optionList(state.options.reviewStatuses, "", "All review statuses")}</select>
+    </div>
+    <div class="table-wrap">
+    <table><thead><tr><th>Project</th><th>Review</th><th>Question</th><th>Area</th><th>Result</th><th>Evidence</th><th>Actions</th></tr></thead><tbody id="result-rows"></tbody></table></div></section>`);
   const refresh = async () => {
-    const params = new URLSearchParams({ search: document.querySelector("#result-search").value, area: document.querySelector("#result-area").value, result: document.querySelector("#result-value").value, status: document.querySelector("#result-status").value });
+    const params = new URLSearchParams({ search: document.querySelector("#result-search").value, rootCause: document.querySelector("#result-rootCause").value, area: document.querySelector("#result-area").value, result: document.querySelector("#result-value").value, status: document.querySelector("#result-status").value });
     try {
       const results = await api(`/api/results?${params}`);
-      document.querySelector("#result-rows").innerHTML = results.map(item => `<tr data-link="#/reviews/${item.reviewId}"><td><span class="code">${escapeHTML(item.projectCode)}</span><span class="cell-sub">${escapeHTML(item.projectName)}</span></td><td><span class="cell-title">${escapeHTML(item.reviewType)}</span><span class="cell-sub">${formatDate(item.reviewDate)} / ${escapeHTML(item.reviewStatus)}</span></td><td><span class="code">${escapeHTML(item.questionCode)}</span><span class="cell-sub truncate">${escapeHTML(item.questionText)}</span></td><td>${escapeHTML(item.reviewArea)}</td><td>${statusBadge(item.result)}</td><td>${escapeHTML(item.evidenceStatus || "-")}</td><td>${item.actionCount}</td></tr>`).join("") || emptyRow(7, "No question results", "Adjust the filters or start a project review.");
+      document.querySelector("#result-rows").innerHTML = results.map(item => `<tr data-link="#/reviews/${item.reviewId}"><td><span class="code">${escapeHTML(item.projectCode)}</span><span class="cell-sub">${escapeHTML(item.projectName)}</span></td><td><span class="cell-title">${escapeHTML(item.reviewType)}</span><span class="cell-sub">${formatDate(item.reviewDate)} / ${escapeHTML(item.reviewStatus)}</span></td><td><span class="code">${escapeHTML(item.questionCode)}</span><span class="cell-sub truncate">${escapeHTML(item.questionText)}</span></td><td>${escapeHTML(item.reviewArea)}</td><td>${statusBadge(item.result)}</td><td>${escapeHTML(item.rootCause || "-")}</td><td>${item.actionCount}</td></tr>`).join("") || emptyRow(7, "No question results", "Adjust the filters or start a project review.");
     } catch (error) { showError(error); }
   };
-  ["result-area", "result-value", "result-status"].forEach(id => document.querySelector(`#${id}`).addEventListener("change", refresh));
+  ["result-rootCause", "result-area", "result-value", "result-status"].forEach(id => document.querySelector(`#${id}`).addEventListener("change", refresh));
   document.querySelector("#result-search").addEventListener("input", debounce(refresh));
   await refresh();
 }
