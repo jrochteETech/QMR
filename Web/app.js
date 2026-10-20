@@ -251,7 +251,7 @@ function openProjectDrawer(project = null) {
     const revenue = Number(form.elements.bacLaborRevenue.value);
     const cost = Number(form.elements.bacLaborCost.value);
     const actual = Number(form.elements.actLabMargin.value);
-    const margin = cost ? 100 * (1 - revenue / cost) : null;
+    const margin = cost ? 100 * (1 - cost / revenue) : null;
     form.querySelector("[data-bac-margin]").textContent = margin == null ? "-" : formatPercent(margin);
     form.querySelector("[data-margin-variance]").textContent = margin == null ? "-" : formatPercent(actual - margin);
   };
